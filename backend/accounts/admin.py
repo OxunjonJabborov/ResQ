@@ -15,9 +15,11 @@ class UserAdmin(BaseUserAdmin):
         "last_name",
         "is_seller_display",
         "is_active",
-        "is_staff",
+        "no_show_count",
+        "order_blocked_until",
         "date_joined",
     ]
+    actions = ["unblock_ordering"]
     list_filter = ["is_active", "is_staff", "language", "city"]
     search_fields = ["phone", "first_name", "last_name", "email"]
     fieldsets = (
@@ -37,6 +39,7 @@ class UserAdmin(BaseUserAdmin):
                 )
             },
         ),
+        (_("No-shows"), {"fields": ("no_show_count", "order_blocked_until")}),
         (
             _("Permissions"),
             {"fields": ("is_active", "is_staff", "is_superuser", "groups", "user_permissions")},
@@ -44,6 +47,11 @@ class UserAdmin(BaseUserAdmin):
         (_("Dates"), {"fields": ("last_login", "date_joined")}),
     )
     add_fieldsets = ((None, {"classes": ("wide",), "fields": ("phone", "password1", "password2")}),)
+
+    @admin.action(description=_("Allow ordering again (clear no-show block)"))
+    def unblock_ordering(self, request, queryset):
+        updated = queryset.update(order_blocked_until=None)
+        self.message_user(request, _("%d user(s) unblocked.") % updated, messages.SUCCESS)
 
     @admin.display(boolean=True, description=_("seller"))
     def is_seller_display(self, obj):

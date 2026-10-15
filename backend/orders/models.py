@@ -236,3 +236,21 @@ class Dispute(TimeStampedModel):
 
     def __str__(self):
         return f"Dispute #{self.pk} on {self.order}"
+
+
+class NoShow(models.Model):
+    """A ready order the buyer never picked up. One row per order (idempotency)."""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="no_shows"
+    )
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name="no_show")
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = _("no-show")
+        verbose_name_plural = _("no-shows")
+
+    def __str__(self):
+        return f"No-show {self.user_id} / {self.order_id}"

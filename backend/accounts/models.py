@@ -80,6 +80,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     telegram_chat_id = models.CharField(_("Telegram chat id"), max_length=32, blank=True)
 
+    # No-show policy (see orders.services.register_no_show).
+    no_show_count = models.PositiveIntegerField(_("missed pickups"), default=0)
+    order_blocked_until = models.DateTimeField(_("ordering blocked until"), null=True, blank=True)
+
     is_active = models.BooleanField(_("active"), default=True)
     is_staff = models.BooleanField(_("staff status"), default=False)
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)

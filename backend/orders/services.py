@@ -18,7 +18,7 @@ from django.utils.translation import gettext as _
 
 from accounts.models import SellerProfile, User
 from catalog.models import Product
-from catalog.services import apply_stock_status
+from catalog.services import apply_stock_status, estimate_unit_weight_kg
 from common.exceptions import Conflict, DomainError, NotAllowed, NotFound
 from common.models import PlatformSettings
 from payments import services as payments
@@ -31,6 +31,7 @@ from .models import (
     CartItem,
     Dispute,
     DisputeStatus,
+    NoShow,
     Order,
     OrderEvent,
     OrderItem,
@@ -179,7 +180,7 @@ def _new_pickup_code(seller_id: int) -> str:
 def _lock_products(ids) -> dict[int, Product]:
     qs = (
         Product.objects.select_for_update(of=("self",))
-        .select_related("seller__user")
+        .select_related("seller__user", "category__parent")
         .filter(pk__in=sorted(set(ids)))
         .order_by("pk")
     )
@@ -309,7 +310,7 @@ def _create_order(
                 unit=products[i.product_id].unit,
                 unit_price=products[i.product_id].current_price,
                 original_unit_price=products[i.product_id].original_price,
-                unit_weight_kg=products[i.product_id].unit_weight_kg,
+                unit_weight_kg=estimate_unit_weight_kg(products[i.product_id]),
             )
             for i in items
         ]
@@ -482,6 +483,55 @@ def system_cancel(
     if order.status != expected_status or deadline is None or deadline > timezone.now():
         return None
     return _cancel_locked(order, reason=reason, actor=None)
+
+
+# --- Automatic cancellations (Celery) ---------------------------------------------------
+
+
+def cancel_unconfirmed(order_id: int) -> Order | None:
+    return system_cancel(
+        order_id,
+        reason=CancelReason.NOT_CONFIRMED,
+        expected_status=OrderStatus.PENDING,
+        deadline_field="confirm_deadline",
+    )
+
+
+@transaction.atomic
+def cancel_no_show(order_id: int) -> Order | None:
+    order = system_cancel(
+        order_id,
+        reason=CancelReason.NOT_PICKED_UP,
+        expected_status=OrderStatus.READY_FOR_PICKUP,
+        deadline_field="pickup_deadline",
+    )
+    if order is not None:
+        register_no_show(order)
+    return order
+
+
+def register_no_show(order: Order) -> bool:
+    """Count a missed pickup and block repeat offenders. Returns True if now blocked."""
+    _no_show, created = NoShow.objects.get_or_create(
+        order=order, defaults={"user_id": order.buyer_id}
+    )
+    if not created:
+        return False
+    config = PlatformSettings.get()
+    buyer = User.objects.select_for_update().get(pk=order.buyer_id)
+    buyer.no_show_count += 1
+    window_start = timezone.now() - timedelta(days=config.no_show_window_days)
+    recent = NoShow.objects.filter(user=buyer, created_at__gte=window_start).count()
+    blocked = False
+    if config.no_show_limit and recent >= config.no_show_limit:
+        buyer.order_blocked_until = timezone.now() + timedelta(days=config.no_show_block_days)
+        blocked = True
+    buyer.save(update_fields=["no_show_count", "order_blocked_until"])
+    return blocked
+
+
+def unblock_buyer(user: User) -> None:
+    User.objects.filter(pk=user.pk).update(order_blocked_until=None)
 
 
 # --- Reviews --------------------------------------------------------------------------
