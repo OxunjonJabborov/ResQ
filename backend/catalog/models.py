@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
@@ -236,3 +237,63 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f"{self.product_id}#{self.pk}"
+
+
+class PriceChangeReason(models.TextChoices):
+    MANUAL = "manual", _("Changed by seller")
+    MARKDOWN = "markdown", _("Automatic markdown")
+    ADMIN = "admin", _("Changed by admin")
+
+
+class PriceHistory(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="price_history")
+    old_price = models.PositiveBigIntegerField()
+    new_price = models.PositiveBigIntegerField()
+    reason = models.CharField(max_length=10, choices=PriceChangeReason.choices)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        ordering = ["-created_at", "-id"]
+        verbose_name = _("price change")
+        verbose_name_plural = _("price history")
+
+    def __str__(self):
+        return f"{self.product_id}: {self.old_price} -> {self.new_price}"
+
+
+class MarkdownRule(TimeStampedModel):
+    """Seller-defined automatic price drops as the expiry date approaches.
+
+    `steps` is a list like [{"days_before_expiry": 3, "discount_percent": 30},
+    {"days_before_expiry": 1, "discount_percent": 50}]: from N days before expiry the
+    price becomes original_price * (100 - discount_percent) / 100, never below
+    `min_price` and never above the current price.
+    """
+
+    product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name="markdown_rule")
+    is_active = models.BooleanField(_("enabled"), default=True)
+    min_price = models.PositiveBigIntegerField(_("minimum price, UZS"))
+    steps = models.JSONField(_("steps"), default=list)
+    last_applied_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("markdown rule")
+        verbose_name_plural = _("markdown rules")
+
+    def __str__(self):
+        return f"Markdown for {self.product_id}"
+
+
+class Favorite(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="favorites"
+    )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="favorited_by")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        constraints = [models.UniqueConstraint(fields=["user", "product"], name="favorite_unique")]
+
+    def __str__(self):
+        return f"{self.user_id} likes {self.product_id}"

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from .models import Category, Product, ProductImage, ProductStatus
+from .models import Category, MarkdownRule, PriceHistory, Product, ProductImage, ProductStatus
 
 
 @admin.register(Category)
@@ -50,3 +50,17 @@ class ProductAdmin(admin.ModelAdmin):
     def hide_products(self, request, queryset):
         updated = queryset.update(status=ProductStatus.HIDDEN)
         self.message_user(request, _("%d product(s) hidden.") % updated)
+
+
+@admin.register(MarkdownRule)
+class MarkdownRuleAdmin(admin.ModelAdmin):
+    list_display = ["product", "is_active", "min_price", "last_applied_at"]
+    list_filter = ["is_active"]
+    raw_id_fields = ["product"]
+
+
+@admin.register(PriceHistory)
+class PriceHistoryAdmin(admin.ModelAdmin):
+    list_display = ["product", "old_price", "new_price", "reason", "created_at"]
+    list_filter = ["reason"]
+    raw_id_fields = ["product"]

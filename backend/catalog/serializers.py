@@ -113,6 +113,7 @@ class ProductListSerializer(serializers.ModelSerializer):
 class ProductDetailSerializer(ProductListSerializer):
     seller = PublicSellerSerializer(read_only=True)
     images = ProductImageSerializer(many=True, read_only=True)
+    is_favorite = serializers.SerializerMethodField()
 
     class Meta(ProductListSerializer.Meta):
         fields = [
@@ -121,7 +122,15 @@ class ProductDetailSerializer(ProductListSerializer):
             "condition_note",
             "unit_weight_kg",
             "images",
+            "is_favorite",
         ]
+
+    def get_is_favorite(self, obj) -> bool:
+        request = self.context.get("request")
+        user = getattr(request, "user", None)
+        if not (user and user.is_authenticated):
+            return False
+        return obj.favorited_by.filter(user=user).exists()
 
 
 class SellerProductSerializer(serializers.ModelSerializer):
@@ -175,3 +184,49 @@ class StatusChangeSerializer(serializers.Serializer):
 
 class ImageUploadSerializer(serializers.Serializer):
     image = serializers.ImageField()
+
+
+class MarkdownStepSerializer(serializers.Serializer):
+    days_before_expiry = serializers.IntegerField(min_value=0, max_value=60)
+    discount_percent = serializers.IntegerField(min_value=1, max_value=99)
+
+
+class MarkdownRuleSerializer(serializers.Serializer):
+    is_active = serializers.BooleanField(default=True)
+    min_price = serializers.IntegerField(min_value=1)
+    steps = MarkdownStepSerializer(many=True)
+    last_applied_at = serializers.DateTimeField(read_only=True)
+    preview = serializers.SerializerMethodField()
+
+    def get_preview(self, rule) -> list[dict]:
+        """Planned price for each remaining day until expiry."""
+        from datetime import timedelta
+
+        from django.utils import timezone
+
+        from .services import markdown_target_price
+
+        product = rule.product
+        if product.expiry_date is None:
+            return []
+        today = timezone.localdate()
+        out, price = [], product.current_price
+        day = today
+        while day <= product.expiry_date and len(out) < 61:
+            target = markdown_target_price(product, rule, day)
+            if target is not None and target < price:
+                price = target
+            out.append({"date": day.isoformat(), "price": price})
+            day += timedelta(days=1)
+        return out
+
+
+class PriceHistorySerializer(serializers.Serializer):
+    old_price = serializers.IntegerField()
+    new_price = serializers.IntegerField()
+    reason = serializers.CharField()
+    created_at = serializers.DateTimeField()
+
+
+class FavoriteCreateSerializer(serializers.Serializer):
+    product = serializers.IntegerField()

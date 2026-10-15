@@ -14,12 +14,15 @@ from common.permissions import IsSeller
 
 from . import services
 from .filters import ProductFilter, SafeOrderingFilter, SellerProductFilter
-from .models import Category, Product
+from .models import Category, MarkdownRule, Product
 from .permissions import IsProductOwner
 from .serializers import (
     CategorySerializer,
     CategoryTreeSerializer,
+    FavoriteCreateSerializer,
     ImageUploadSerializer,
+    MarkdownRuleSerializer,
+    PriceHistorySerializer,
     ProductDetailSerializer,
     ProductImageSerializer,
     ProductListSerializer,
@@ -199,4 +202,69 @@ class SellerProductViewSet(viewsets.ModelViewSet):
         image = get_object_or_404(product.images, pk=image_id)
         self.check_object_permissions(request, image)
         services.delete_image(image)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @extend_schema(request=MarkdownRuleSerializer, responses=MarkdownRuleSerializer)
+    @action(detail=True, methods=["get", "put", "delete"])
+    def markdown(self, request, pk=None):
+        product = self.get_object()
+        rule = MarkdownRule.objects.filter(product=product).first()
+        if request.method == "GET":
+            if rule is None:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(MarkdownRuleSerializer(rule).data)
+        if request.method == "DELETE":
+            if rule is not None:
+                rule.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        serializer = MarkdownRuleSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        rule = services.set_markdown_rule(
+            product,
+            min_price=serializer.validated_data["min_price"],
+            steps=serializer.validated_data["steps"],
+            is_active=serializer.validated_data["is_active"],
+        )
+        return Response(MarkdownRuleSerializer(rule).data)
+
+    @extend_schema(responses=PriceHistorySerializer(many=True))
+    @action(detail=True, methods=["get"], url_path="price-history", pagination_class=None)
+    def price_history(self, request, pk=None):
+        product = self.get_object()
+        rows = product.price_history.all()[:100]
+        return Response(PriceHistorySerializer(rows, many=True).data)
+
+
+@extend_schema(tags=["favorites"])
+class FavoriteViewSet(viewsets.GenericViewSet):
+    """The user's favorite products (only currently public ones are listed)."""
+
+    serializer_class = ProductListSerializer
+    filter_backends: list = []
+
+    def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):
+            return Product.objects.none()
+        return (
+            Product.objects.public()
+            .filter(favorited_by__user=self.request.user)
+            .select_related("category", "seller", "seller__city", "seller__user")
+            .prefetch_related("images")
+            .order_by("-favorited_by__created_at")
+        )
+
+    def list(self, request):
+        page = self.paginate_queryset(self.get_queryset())
+        return self.get_paginated_response(self.get_serializer(page, many=True).data)
+
+    @extend_schema(request=FavoriteCreateSerializer, responses={201: None})
+    def create(self, request):
+        s = FavoriteCreateSerializer(data=request.data)
+        s.is_valid(raise_exception=True)
+        services.add_favorite(request.user, s.validated_data["product"])
+        return Response(status=status.HTTP_201_CREATED)
+
+    @extend_schema(responses={204: None})
+    def destroy(self, request, pk=None):
+        services.remove_favorite(request.user, int(pk))
         return Response(status=status.HTTP_204_NO_CONTENT)
