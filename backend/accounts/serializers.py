@@ -69,8 +69,16 @@ class UserSerializer(serializers.ModelSerializer):
             "is_seller",
             "seller_profile",
             "date_joined",
+            "order_blocked_until",
         ]
-        read_only_fields = ["id", "phone", "is_seller", "seller_profile", "date_joined"]
+        read_only_fields = [
+            "id",
+            "phone",
+            "is_seller",
+            "seller_profile",
+            "date_joined",
+            "order_blocked_until",
+        ]
 
 
 class AuthResponseSerializer(serializers.Serializer):
