@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- ResQ ---
+backend/media/
+backend/staticfiles/
+node_modules/
+frontend/dist/
+.env.*
+!.env.example

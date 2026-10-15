@@ -1,0 +1,31 @@
+[project]
+name = "resq-backend"
+version = "0.1.0"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["*/migrations/*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "DJ", "SIM", "C4"]
+ignore = ["DJ001"]
+
+[tool.ruff.lint.per-file-ignores]
+"*/tests/*" = ["B011"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["config", "common", "accounts", "catalog", "orders", "payments", "notifications", "analytics"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = ["test_*.py", "tests.py"]
+addopts = "-ra --strict-markers --reuse-db"
+markers = [
+    "concurrency: tests that need real transactions and parallel DB connections",
+]
+
+[tool.coverage.run]
+source = ["."]
+omit = ["*/migrations/*", "*/tests/*", "config/*sgi.py", "manage.py"]
