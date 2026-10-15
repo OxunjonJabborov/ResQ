@@ -203,12 +203,14 @@ export default function SellerOrdersPage() {
       ? 'history'
       : (focusedStatus as Tab)
     : null
-  const tab: Tab = chosenTab ?? focusedTab ?? 'pending'
 
   if (counts.isPending) return <PageSpinner />
   if (counts.isError) return <ErrorState error={counts.error} onRetry={() => void counts.refetch()} />
   const all = counts.data.results
   const byTab = (tb: Tab) => all.filter((o) => (tb === 'history' ? ['completed', 'cancelled'].includes(o.status) : o.status === (tb as OrderStatus)))
+  // Open the first tab that needs attention unless the user or a link picked one.
+  const firstBusy = (['pending', 'confirmed', 'ready_for_pickup'] as Tab[]).find((tb) => byTab(tb).length > 0)
+  const tab: Tab = chosenTab ?? focusedTab ?? firstBusy ?? 'pending'
   const shown = byTab(tab)
 
   return (

@@ -181,13 +181,13 @@ export default function CatalogPage() {
         </form>
       </div>
 
-      <div className="mt-3 flex items-center gap-2">
+      <div className="mt-3 flex flex-wrap items-center gap-2">
         <button type="button" className="btn-secondary lg:hidden" onClick={() => setShowFilters(true)}>
           <SlidersHorizontal className="h-4 w-4" aria-hidden />
           {t('catalog.filters')}
           {activeFilters > 0 && <span className="rounded-full bg-brand-700 px-1.5 text-xs text-white">{activeFilters}</span>}
         </button>
-        <select className="input !w-auto" value={params.get('ordering') ?? ''} onChange={(e) => set('ordering', e.target.value)} aria-label={t('catalog.sort')}>
+        <select className="input !w-auto min-w-0 max-w-[60%]" value={params.get('ordering') ?? ''} onChange={(e) => set('ordering', e.target.value)} aria-label={t('catalog.sort')}>
           <option value="">{t('catalog.sortNewest')}</option>
           <option value="current_price">{t('catalog.sortPriceAsc')}</option>
           <option value="-current_price">{t('catalog.sortPriceDesc')}</option>
@@ -195,7 +195,7 @@ export default function CatalogPage() {
           <option value="expiry_date">{t('catalog.sortExpiry')}</option>
           {near && <option value="distance_km">{t('catalog.sortDistance')}</option>}
         </select>
-        {query.isSuccess && <span className="ml-auto text-sm text-muted">{t('catalog.results', { count })}</span>}
+        {query.isSuccess && <span className="ml-auto whitespace-nowrap text-sm text-muted">{t('catalog.results', { count })}</span>}
       </div>
 
       <div className="mt-4 grid gap-6 lg:grid-cols-[260px_1fr]">
