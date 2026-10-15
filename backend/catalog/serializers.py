@@ -4,7 +4,8 @@ from rest_framework import serializers
 from accounts.models import SellerProfile
 from accounts.serializers import CitySerializer, PublicSellerSerializer
 
-from .models import Category, Product, ProductImage, ProductStatus
+from .models import Category, Product, ProductImage
+from .services import CREATE_STATUS_CHOICES, SELLER_STATUS_CHOICES
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -128,9 +129,7 @@ class SellerProductSerializer(serializers.ModelSerializer):
 
     images = ProductImageSerializer(many=True, read_only=True)
     category_detail = CategoryBriefSerializer(source="category", read_only=True)
-    status = serializers.ChoiceField(
-        choices=[ProductStatus.DRAFT, ProductStatus.ACTIVE], required=False
-    )
+    status = serializers.ChoiceField(choices=CREATE_STATUS_CHOICES, required=False)
     is_public = serializers.BooleanField(read_only=True)
 
     class Meta:
@@ -171,9 +170,7 @@ class SellerProductSerializer(serializers.ModelSerializer):
 
 
 class StatusChangeSerializer(serializers.Serializer):
-    status = serializers.ChoiceField(
-        choices=[ProductStatus.DRAFT, ProductStatus.ACTIVE, ProductStatus.HIDDEN]
-    )
+    status = serializers.ChoiceField(choices=SELLER_STATUS_CHOICES)
 
 
 class ImageUploadSerializer(serializers.Serializer):

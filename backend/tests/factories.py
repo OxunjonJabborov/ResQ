@@ -53,3 +53,26 @@ class ProductFactory(factory.django.DjangoModelFactory):
     expiry_date = factory.LazyFunction(lambda: timezone.localdate() + timedelta(days=5))
     status = ProductStatus.ACTIVE
     published_at = factory.LazyFunction(timezone.now)
+
+
+def place_order(buyer, *lines, payment_method="cash"):
+    """Put (product, qty) lines in the buyer's cart and check out. Returns the orders."""
+    from orders import services
+
+    for product, qty in lines:
+        services.add_to_cart(buyer, product.pk, qty)
+    return services.checkout(buyer, payment_method)
+
+
+def advance(order, to: str):
+    """Drive an order through the seller-side status machine."""
+    from orders import services
+
+    seller_user = order.seller.user
+    if to in ("confirmed", "ready_for_pickup", "completed"):
+        order = services.confirm_order(order, seller_user)
+    if to in ("ready_for_pickup", "completed"):
+        order = services.mark_ready(order, seller_user)
+    if to == "completed":
+        order = services.complete_order(order, seller_user, order.pickup_code)
+    return order

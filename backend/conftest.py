@@ -66,3 +66,30 @@ def seller_client(seller):
 @pytest.fixture
 def product(seller):
     return ProductFactory(seller=seller)
+
+
+def reseed_reference_data():
+    """Re-run the seed data migrations (TransactionTestCase flushes them)."""
+    import importlib
+
+    from django.apps import apps
+
+    for module in (
+        "accounts.migrations.0002_seed_cities",
+        "catalog.migrations.0002_seed_categories",
+    ):
+        importlib.import_module(module).seed(apps, None)
+
+
+@pytest.fixture
+def transactional_seed(transactional_db):
+    reseed_reference_data()
+    yield
+    reseed_reference_data()
+
+
+@pytest.fixture(scope="session")
+def django_db_setup(django_db_setup, django_db_blocker):
+    # With --reuse-db a previous transactional run may have flushed the seed rows.
+    with django_db_blocker.unblock():
+        reseed_reference_data()

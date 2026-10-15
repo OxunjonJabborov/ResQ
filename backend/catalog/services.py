@@ -19,6 +19,16 @@ ALLOWED_IMAGE_FORMATS = {"JPEG", "PNG", "WEBP"}
 # Statuses a seller may set by hand. SOLD_OUT and EXPIRED are set by the system.
 SELLER_SETTABLE_STATUSES = {ProductStatus.DRAFT, ProductStatus.ACTIVE, ProductStatus.HIDDEN}
 
+# Named choice lists (also referenced by the OpenAPI enum overrides).
+CREATE_STATUS_CHOICES = [
+    (ProductStatus.DRAFT.value, ProductStatus.DRAFT.label),
+    (ProductStatus.ACTIVE.value, ProductStatus.ACTIVE.label),
+]
+SELLER_STATUS_CHOICES = [
+    *CREATE_STATUS_CHOICES,
+    (ProductStatus.HIDDEN.value, ProductStatus.HIDDEN.label),
+]
+
 PRODUCT_WRITABLE_FIELDS = {
     "category",
     "title",

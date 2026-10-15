@@ -41,6 +41,8 @@ LOCAL_APPS = [
     "common",
     "accounts",
     "catalog",
+    "payments",
+    "orders",
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -153,6 +155,7 @@ REST_FRAMEWORK = {
         "otp_request_ip": env("THROTTLE_OTP_REQUEST_IP", default="20/hour"),
         "otp_verify": env("THROTTLE_OTP_VERIFY", default="10/min"),
         "auth": env("THROTTLE_AUTH", default="30/min"),
+        "pickup_code": env("THROTTLE_PICKUP_CODE", default="30/min"),
     },
     "EXCEPTION_HANDLER": "common.exceptions.api_exception_handler",
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
@@ -174,6 +177,15 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
     "SCHEMA_PATH_PREFIX": r"/api/v1",
     "COMPONENT_SPLIT_REQUEST": True,
+    "ENUM_NAME_OVERRIDES": {
+        "ProductStatusEnum": "catalog.models.ProductStatus",
+        "ProductCreateStatusEnum": "catalog.services.CREATE_STATUS_CHOICES",
+        "ProductSellerStatusEnum": "catalog.services.SELLER_STATUS_CHOICES",
+        "OrderStatusEnum": "orders.models.OrderStatus",
+        "PaymentStatusEnum": "payments.models.PaymentStatus",
+        "VerificationStatusEnum": "accounts.models.VerificationStatus",
+        "DisputeStatusEnum": "orders.models.DisputeStatus",
+    },
 }
 
 # --- Celery ---------------------------------------------------------------------------
@@ -215,4 +227,23 @@ LOGGING = {
     "loggers": {
         "django.db.backends": {"level": "WARNING"},
     },
+}
+
+# --- Business rule defaults -----------------------------------------------------------
+# Initial values for common.PlatformSettings (editable in Django admin at runtime).
+RESQ_DEFAULTS = {
+    "order_confirm_timeout_minutes": env.int("ORDER_CONFIRM_TIMEOUT_MINUTES", default=30),
+    "pickup_window_hours": env.int("PICKUP_WINDOW_HOURS", default=24),
+    "no_show_limit": 3,
+    "no_show_window_days": 30,
+    "no_show_block_days": 7,
+    "low_stock_threshold": 3,
+    "nearby_radius_km": 5,
+    "nearby_min_discount_percent": 30,
+}
+
+# Payment providers by method code. Add Click/Payme here once implemented.
+PAYMENT_PROVIDERS = {
+    "cash": "payments.providers.cash.CashOnPickupProvider",
+    "card": "payments.providers.cash.CardOnPickupProvider",
 }

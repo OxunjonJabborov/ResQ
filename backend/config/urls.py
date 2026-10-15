@@ -13,6 +13,8 @@ def healthz(_request):
 api_v1 = [
     path("", include("accounts.urls")),
     path("", include("catalog.urls")),
+    path("", include("orders.urls")),
+    path("", include("payments.urls")),
 ]
 
 urlpatterns = [
