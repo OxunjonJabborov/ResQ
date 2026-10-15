@@ -1,0 +1,901 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-15 17:07+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: uz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+msgid "Personal info"
+msgstr "Shaxsiy ma'lumotlar"
+
+msgid "No-shows"
+msgstr "Olib ketilmaganlar"
+
+msgid "Permissions"
+msgstr "Ruxsatlar"
+
+msgid "Dates"
+msgstr "Sanalar"
+
+msgid "Allow ordering again (clear no-show block)"
+msgstr "Buyurtma berishga qayta ruxsat berish"
+
+#, python-format
+msgid "%d user(s) unblocked."
+msgstr "%d ta foydalanuvchi blokdan chiqarildi."
+
+msgid "seller"
+msgstr "sotuvchi"
+
+#, python-format
+msgid "%d store(s) updated."
+msgstr "%d ta do'kon yangilandi."
+
+msgid "Verify selected stores"
+msgstr "Tanlangan do'konlarni tasdiqlash"
+
+msgid "Reject selected stores"
+msgstr "Tanlangan do'konlarni rad etish"
+
+msgid "Move selected stores back to review"
+msgstr "Qayta tekshiruvga qaytarish"
+
+msgid "Accounts"
+msgstr "Hisoblar"
+
+msgid "Uzbek"
+msgstr "O'zbekcha"
+
+msgid "Russian"
+msgstr "Ruscha"
+
+msgid "phone"
+msgstr "telefon"
+
+msgid "first name"
+msgstr "ism"
+
+msgid "last name"
+msgstr "familiya"
+
+msgid "email"
+msgstr "email"
+
+msgid "language"
+msgstr "til"
+
+msgid "city"
+msgstr "shahar"
+
+msgid "latitude"
+msgstr "kenglik"
+
+msgid "longitude"
+msgstr "uzunlik"
+
+msgid "Telegram chat id"
+msgstr "Telegram chat ID"
+
+msgid "missed pickups"
+msgstr "olib ketilmagan buyurtmalar"
+
+msgid "ordering blocked until"
+msgstr "buyurtma berish bloklangan sana"
+
+msgid "active"
+msgstr "faol"
+
+msgid "staff status"
+msgstr "xodim"
+
+msgid "date joined"
+msgstr "ro'yxatdan o'tgan sana"
+
+msgid "user"
+msgstr "foydalanuvchi"
+
+msgid "users"
+msgstr "foydalanuvchilar"
+
+msgid "name (Uzbek)"
+msgstr "nomi (o'zbekcha)"
+
+msgid "name (Russian)"
+msgstr "nomi (ruscha)"
+
+msgid "cities"
+msgstr "shaharlar"
+
+msgid "Pending review"
+msgstr "Tekshiruvda"
+
+msgid "Verified"
+msgstr "Tasdiqlangan"
+
+msgid "Rejected"
+msgstr "Rad etilgan"
+
+msgid "store name"
+msgstr "do'kon nomi"
+
+msgid "description"
+msgstr "tavsif"
+
+msgid "logo"
+msgstr "logotip"
+
+msgid "store phone"
+msgstr "do'kon telefoni"
+
+msgid "address"
+msgstr "manzil"
+
+msgid "working hours"
+msgstr "ish vaqti"
+
+msgid "verification status"
+msgstr "tekshiruv holati"
+
+msgid "verification note"
+msgstr "tekshiruv izohi"
+
+msgid "verified at"
+msgstr "tasdiqlangan vaqt"
+
+msgid "seller profile"
+msgstr "sotuvchi profili"
+
+msgid "seller profiles"
+msgstr "sotuvchi profillari"
+
+msgid "Login"
+msgstr "Kirish"
+
+msgid "OTP code"
+msgstr "SMS kod"
+
+msgid "OTP codes"
+msgstr "SMS kodlar"
+
+msgid "This account is disabled."
+msgstr "Bu hisob bloklangan."
+
+msgid "Please wait before requesting a new code."
+msgstr "Yangi kod so'rashdan oldin biroz kuting."
+
+#, python-format
+msgid "ResQ: your login code is %(code)s. Do not share it with anyone."
+msgstr "ResQ: kirish kodingiz %(code)s. Uni hech kimga bermang."
+
+msgid "Could not send SMS. Please try again later."
+msgstr "SMS yuborib bo'lmadi. Keyinroq urinib ko'ring."
+
+msgid "Invalid or expired code."
+msgstr "Kod noto'g'ri yoki muddati o'tgan."
+
+msgid "Must be an object keyed by weekday."
+msgstr "Hafta kunlari bo'yicha obyekt bo'lishi kerak."
+
+#, python-format
+msgid "Unknown weekday: %s"
+msgstr "Noma'lum hafta kuni: %s"
+
+msgid "Use {\"open\": \"HH:MM\", \"close\": \"HH:MM\"}."
+msgstr "{\"open\": \"SS:DD\", \"close\": \"SS:DD\"} formatidan foydalaning."
+
+msgid "Invalid time."
+msgstr "Vaqt noto'g'ri."
+
+msgid "You already have a store."
+msgstr "Sizda allaqachon do'kon bor."
+
+msgid "Code sent."
+msgstr "Kod yuborildi."
+
+msgid "You do not have a store yet."
+msgstr "Sizda hali do'kon yo'q."
+
+msgid "Analytics"
+msgstr "Statistika"
+
+msgid "revenue, UZS"
+msgstr "tushum, so'm"
+
+msgid "buyers saved, UZS"
+msgstr "xaridorlar tejadi, so'm"
+
+msgid "kg saved from waste"
+msgstr "isrofdan qutqarilgan kg"
+
+msgid "seller daily stats"
+msgstr "sotuvchining kunlik statistikasi"
+
+msgid "platform impact snapshot"
+msgstr "platforma ta'siri"
+
+msgid "platform impact snapshots"
+msgstr "platforma ta'siri"
+
+msgid "Hide selected products (moderation)"
+msgstr "Tanlangan mahsulotlarni yashirish (moderatsiya)"
+
+#, python-format
+msgid "%d product(s) hidden."
+msgstr "%d ta mahsulot yashirildi."
+
+msgid "Catalog"
+msgstr "Katalog"
+
+msgid "Category id or slug (includes subcategories)"
+msgstr "Kategoriya ID yoki slug (ichki kategoriyalar bilan)"
+
+msgid "City id or slug"
+msgstr "Shahar ID yoki slug"
+
+msgid "Expires within N days"
+msgstr "N kun ichida tugaydi"
+
+msgid "Max distance from lat/lng, km"
+msgstr "lat/lng dan maksimal masofa, km"
+
+msgid "Must be zero or positive."
+msgstr "Nol yoki musbat bo'lishi kerak."
+
+msgid "lat and lng are required."
+msgstr "lat va lng majburiy."
+
+msgid "Must be positive."
+msgstr "Musbat bo'lishi kerak."
+
+msgid "parent"
+msgstr "ota kategoriya"
+
+msgid "icon"
+msgstr "belgi"
+
+msgid "Frontend icon name."
+msgstr "Frontend belgisi nomi."
+
+msgid "requires expiry date"
+msgstr "yaroqlilik muddati majburiy"
+
+msgid "Products here must have a future expiry date. Inherited by children."
+msgstr "Bu yerdagi mahsulotlarda kelajakdagi muddat bo'lishi shart. Ichki kategoriyalarga o'tadi."
+
+msgid "default weight per unit, kg"
+msgstr "bir birlikning standart og'irligi, kg"
+
+msgid "Used for waste-prevented estimates when a product has no weight."
+msgstr "Mahsulot og'irligi ko'rsatilmaganda isrof hisobida ishlatiladi."
+
+msgid "category"
+msgstr "kategoriya"
+
+msgid "categories"
+msgstr "kategoriyalar"
+
+msgid "piece"
+msgstr "dona"
+
+msgid "kg"
+msgstr "kg"
+
+msgid "gram"
+msgstr "gramm"
+
+msgid "liter"
+msgstr "litr"
+
+msgid "milliliter"
+msgstr "millilitr"
+
+msgid "pack"
+msgstr "qadoq"
+
+msgid "box"
+msgstr "quti"
+
+msgid "set"
+msgstr "to'plam"
+
+msgid "New"
+msgstr "Yangi"
+
+msgid "Opened packaging"
+msgstr "Qadoq ochilgan"
+
+msgid "Display item"
+msgstr "Vitrina namunasi"
+
+msgid "Slight defect"
+msgstr "Kichik nuqson"
+
+msgid "Draft"
+msgstr "Qoralama"
+
+msgid "Active"
+msgstr "Sotuvda"
+
+msgid "Sold out"
+msgstr "Tugagan"
+
+msgid "Expired"
+msgstr "Muddati o'tgan"
+
+msgid "Hidden"
+msgstr "Yashirilgan"
+
+msgid "title"
+msgstr "nomi"
+
+msgid "original price, UZS"
+msgstr "asl narx, so'm"
+
+msgid "current price, UZS"
+msgstr "joriy narx, so'm"
+
+msgid "discount, %"
+msgstr "chegirma, %"
+
+msgid "quantity in stock"
+msgstr "qoldiq"
+
+msgid "unit"
+msgstr "o'lchov birligi"
+
+msgid "weight per unit, kg"
+msgstr "bir birlik og'irligi, kg"
+
+msgid "expiry date"
+msgstr "yaroqlilik muddati"
+
+msgid "condition"
+msgstr "holati"
+
+msgid "condition note"
+msgstr "holat izohi"
+
+msgid "status"
+msgstr "holat"
+
+msgid "published at"
+msgstr "e'lon qilingan vaqt"
+
+msgid "product"
+msgstr "mahsulot"
+
+msgid "products"
+msgstr "mahsulotlar"
+
+msgid "product image"
+msgstr "mahsulot rasmi"
+
+msgid "product images"
+msgstr "mahsulot rasmlari"
+
+msgid "Changed by seller"
+msgstr "Sotuvchi o'zgartirdi"
+
+msgid "Automatic markdown"
+msgstr "Avtomatik narx tushirish"
+
+msgid "Changed by admin"
+msgstr "Administrator o'zgartirdi"
+
+msgid "price change"
+msgstr "narx o'zgarishi"
+
+msgid "price history"
+msgstr "narx tarixi"
+
+msgid "enabled"
+msgstr "yoqilgan"
+
+msgid "minimum price, UZS"
+msgstr "minimal narx, so'm"
+
+msgid "steps"
+msgstr "bosqichlar"
+
+msgid "markdown rule"
+msgstr "narx tushirish qoidasi"
+
+msgid "markdown rules"
+msgstr "narx tushirish qoidalari"
+
+msgid "Original price must be positive."
+msgstr "Asl narx musbat bo'lishi kerak."
+
+msgid "Price must be positive."
+msgstr "Narx musbat bo'lishi kerak."
+
+msgid "Discounted price must be lower than the original price."
+msgstr "Chegirmadagi narx asl narxdan past bo'lishi kerak."
+
+msgid "Expiry date is required for this category."
+msgstr "Bu kategoriya uchun yaroqlilik muddati majburiy."
+
+msgid "Expiry date must not be in the past."
+msgstr "Yaroqlilik muddati o'tgan sana bo'lmasligi kerak."
+
+msgid "This category is not available."
+msgstr "Bu kategoriya mavjud emas."
+
+msgid "New products can only be drafts or active."
+msgstr "Yangi mahsulot faqat qoralama yoki sotuvda bo'lishi mumkin."
+
+msgid "This status is managed automatically."
+msgstr "Bu holat avtomatik boshqariladi."
+
+msgid "This product has orders. Hide it instead of deleting."
+msgstr "Bu mahsulotda buyurtmalar bor. O'chirish o'rniga yashiring."
+
+#, python-format
+msgid "A product can have at most %(n)d images."
+msgstr "Mahsulotda ko'pi bilan %(n)d ta rasm bo'lishi mumkin."
+
+msgid "Image is larger than 5 MB."
+msgstr "Rasm 5 MB dan katta."
+
+msgid "Use JPEG, PNG or WebP images."
+msgstr "JPEG, PNG yoki WebP rasmlardan foydalaning."
+
+msgid "This is not your product."
+msgstr "Bu sizning mahsulotingiz emas."
+
+msgid "Markdown rules need a product with an expiry date."
+msgstr "Narx tushirish uchun mahsulotda yaroqlilik muddati bo'lishi kerak."
+
+msgid "Minimum price must be positive and below the original price."
+msgstr "Minimal narx musbat va asl narxdan past bo'lishi kerak."
+
+msgid "Provide between 1 and 10 steps."
+msgstr "1 dan 10 tagacha bosqich kiriting."
+
+msgid "Each step needs days_before_expiry and discount_percent."
+msgstr "Har bir bosqichda kunlar va chegirma foizi bo'lishi kerak."
+
+msgid "days_before_expiry must be 0-60 and discount_percent 1-99."
+msgstr "Kunlar 0-60, chegirma 1-99% bo'lishi kerak."
+
+msgid "Each day may appear only once."
+msgstr "Har bir kun faqat bir marta bo'lishi mumkin."
+
+msgid "Discount must grow as expiry approaches."
+msgstr "Muddat yaqinlashgani sari chegirma oshishi kerak."
+
+msgid "Product not found."
+msgstr "Mahsulot topilmadi."
+
+msgid "created at"
+msgstr "yaratilgan"
+
+msgid "updated at"
+msgstr "yangilangan"
+
+msgid "auto-cancel unconfirmed orders after, minutes"
+msgstr "tasdiqlanmagan buyurtmalarni bekor qilish, daqiqa"
+
+msgid "pickup window after 'ready', hours"
+msgstr "tayyor bo'lgach olib ketish muddati, soat"
+
+msgid "no-shows before a temporary block"
+msgstr "vaqtincha bloklashgacha olib ketilmaganlar soni"
+
+msgid "count no-shows over the last N days"
+msgstr "oxirgi N kundagi olib ketilmaganlar"
+
+msgid "block duration, days"
+msgstr "blok muddati, kun"
+
+msgid "low stock alert at or below"
+msgstr "qoldiq kam haqida ogohlantirish chegarasi"
+
+msgid "'discounts near you' radius, km"
+msgstr "«yaqiningizdagi chegirmalar» radiusi, km"
+
+msgid "'discounts near you' minimum discount, %"
+msgstr "«yaqiningizdagi chegirmalar» minimal chegirma, %"
+
+msgid "auto-expire products"
+msgstr "muddati o'tganlarni avtomatik yashirish"
+
+msgid "apply markdown rules"
+msgstr "narx tushirish qoidalarini qo'llash"
+
+msgid "auto-cancel unconfirmed orders"
+msgstr "tasdiqlanmaganlarni avtomatik bekor qilish"
+
+msgid "auto-cancel orders not picked up"
+msgstr "olib ketilmaganlarni avtomatik bekor qilish"
+
+msgid "platform settings"
+msgstr "platforma sozlamalari"
+
+msgid "Platform settings"
+msgstr "Platforma sozlamalari"
+
+msgid "Enter a valid Uzbek phone number, e.g. +998901234567."
+msgstr "To'g'ri telefon raqamini kiriting, masalan +998901234567."
+
+msgid "Phone number must be in the form +998XXXXXXXXX."
+msgstr "Telefon raqami +998XXXXXXXXX ko'rinishida bo'lishi kerak."
+
+msgid "Notifications"
+msgstr "Bildirishnomalar"
+
+msgid "UZS"
+msgstr "so'm"
+
+#, python-format
+msgid "New order %(number)s"
+msgstr "Yangi buyurtma %(number)s"
+
+#, python-format
+msgid "%(count)d item(s) for %(total)s. Please confirm it."
+msgstr "%(count)d ta mahsulot, %(total)s. Iltimos, tasdiqlang."
+
+#, python-format
+msgid "Order %(number)s confirmed"
+msgstr "%(number)s buyurtma tasdiqlandi"
+
+#, python-format
+msgid "%(store)s is preparing your order."
+msgstr "%(store)s buyurtmangizni tayyorlamoqda."
+
+#, python-format
+msgid "Order %(number)s is ready for pickup"
+msgstr "%(number)s buyurtma olib ketishga tayyor"
+
+#, python-format
+msgid ""
+"Pick it up at %(store)s, %(address)s before %(deadline)s. Show your pickup "
+"code to the seller."
+msgstr "%(store)s, %(address)s manzilidan %(deadline)s gacha olib keting. Sotuvchiga kodni ko'rsating."
+
+#, python-format
+msgid "Thank you! Order %(number)s completed"
+msgstr "Rahmat! %(number)s buyurtma yakunlandi"
+
+#, python-format
+msgid "You saved %(savings)s. How was %(store)s? Leave a review."
+msgstr "Siz %(savings)s tejadingiz. %(store)s qanday edi? Sharh qoldiring."
+
+#, python-format
+msgid "Order %(number)s cancelled"
+msgstr "%(number)s buyurtma bekor qilindi"
+
+#, python-format
+msgid "Low stock: %(title)s"
+msgstr "Qoldiq kam: %(title)s"
+
+#, python-format
+msgid "Only %(n)d left."
+msgstr "Faqat %(n)d ta qoldi."
+
+#, python-format
+msgid "Listing expired: %(title)s"
+msgstr "Muddati o'tdi: %(title)s"
+
+msgid ""
+"It has been hidden from the catalog. Update the expiry date or remove it."
+msgstr "Mahsulot katalogdan yashirildi. Muddatini yangilang yoki o'chiring."
+
+#, python-format
+msgid "Price drop: %(title)s"
+msgstr "Narx tushdi: %(title)s"
+
+#, python-format
+msgid "Now %(new)s instead of %(old)s."
+msgstr "Endi %(old)s o'rniga %(new)s."
+
+#, python-format
+msgid " and %(n)d more"
+msgstr " va yana %(n)d ta"
+
+#, python-format
+msgid "%(n)d new discounts for you"
+msgstr "Siz uchun %(n)d ta yangi chegirma"
+
+#, python-format
+msgid "Your ResQ day: %(date)s"
+msgstr "ResQ dagi kuningiz: %(date)s"
+
+#, python-format
+msgid ""
+"Orders completed: %(orders)d\n"
+"Items sold: %(items)d\n"
+"Revenue: %(revenue)s\n"
+"Saved from waste: %(kg)s kg"
+msgstr "Yakunlangan buyurtmalar: %(orders)d\nSotilgan birliklar: %(items)d\nTushum: %(revenue)s\nIsrofdan qutqarildi: %(kg)s kg"
+
+msgid "New order"
+msgstr "Yangi buyurtma"
+
+msgid "Order status changed"
+msgstr "Buyurtma holati o'zgardi"
+
+msgid "Order cancelled"
+msgstr "Buyurtma bekor qilindi"
+
+msgid "Low stock"
+msgstr "Qoldiq kam"
+
+msgid "Product expired"
+msgstr "Muddati o'tdi"
+
+msgid "Daily summary"
+msgstr "Kunlik hisobot"
+
+msgid "New discounts"
+msgstr "Yangi chegirmalar"
+
+msgid "Price drop on a favorite"
+msgstr "Sevimli mahsulot arzonladi"
+
+msgid "Account"
+msgstr "Hisob"
+
+msgid "frontend link"
+msgstr "havola"
+
+msgid "notification"
+msgstr "bildirishnoma"
+
+msgid "notifications"
+msgstr "bildirishnomalar"
+
+msgid "Telegram"
+msgstr "Telegram"
+
+msgid "new discounts near me / in my categories"
+msgstr "yaqinimdagi / kategoriyalarimdagi yangi chegirmalar"
+
+msgid "notification preferences"
+msgstr "bildirishnoma sozlamalari"
+
+msgid "Cancel selected orders (stock is returned)"
+msgstr "Tanlangan buyurtmalarni bekor qilish (qoldiq qaytariladi)"
+
+#, python-format
+msgid "%d order(s) cancelled."
+msgstr "%d ta buyurtma bekor qilindi."
+
+msgid "Hide selected reviews"
+msgstr "Tanlangan sharhlarni yashirish"
+
+msgid "Show selected reviews"
+msgstr "Tanlangan sharhlarni ko'rsatish"
+
+msgid "Orders"
+msgstr "Buyurtmalar"
+
+msgid "Pending confirmation"
+msgstr "Tasdiq kutilmoqda"
+
+msgid "Confirmed"
+msgstr "Tasdiqlandi"
+
+msgid "Ready for pickup"
+msgstr "Olib ketishga tayyor"
+
+msgid "Completed"
+msgstr "Yakunlandi"
+
+msgid "Cancelled"
+msgstr "Bekor qilindi"
+
+msgid "Cancelled by buyer"
+msgstr "Xaridor bekor qildi"
+
+msgid "Cancelled by seller"
+msgstr "Do'kon bekor qildi"
+
+msgid "Not confirmed by seller in time"
+msgstr "Do'kon o'z vaqtida tasdiqlamadi"
+
+msgid "Not picked up in time"
+msgstr "O'z vaqtida olib ketilmadi"
+
+msgid "Cancelled by ResQ"
+msgstr "ResQ bekor qildi"
+
+msgid "buyer"
+msgstr "xaridor"
+
+msgid "checkout"
+msgstr "rasmiylashtirish"
+
+msgid "total, UZS"
+msgstr "jami, so'm"
+
+msgid "total without discount, UZS"
+msgstr "chegirmasiz jami, so'm"
+
+msgid "payment method"
+msgstr "to'lov usuli"
+
+msgid "note for the seller"
+msgstr "sotuvchiga izoh"
+
+msgid "pickup code"
+msgstr "olib ketish kodi"
+
+msgid "seller must confirm by"
+msgstr "sotuvchi tasdiqlash muddati"
+
+msgid "pick up by"
+msgstr "olib ketish muddati"
+
+msgid "cancel reason"
+msgstr "bekor qilish sababi"
+
+msgid "cancel comment"
+msgstr "bekor qilish izohi"
+
+msgid "order"
+msgstr "buyurtma"
+
+msgid "orders"
+msgstr "buyurtmalar"
+
+msgid "rating"
+msgstr "baho"
+
+msgid "comment"
+msgstr "izoh"
+
+msgid "hidden by moderator"
+msgstr "moderator yashirgan"
+
+msgid "review"
+msgstr "sharh"
+
+msgid "reviews"
+msgstr "sharhlar"
+
+msgid "Open"
+msgstr "Ochiq"
+
+msgid "Resolved"
+msgstr "Hal qilindi"
+
+msgid "reason"
+msgstr "sabab"
+
+msgid "resolution"
+msgstr "qaror"
+
+msgid "dispute"
+msgstr "murojaat"
+
+msgid "disputes"
+msgstr "murojaatlar"
+
+msgid "no-show"
+msgstr "olib ketilmagan"
+
+msgid "no-shows"
+msgstr "olib ketilmaganlar"
+
+msgid "This product is not available."
+msgstr "Bu mahsulot sotuvda emas."
+
+msgid "You cannot buy your own products."
+msgstr "O'z mahsulotingizni sotib ololmaysiz."
+
+msgid "Invalid quantity."
+msgstr "Miqdor noto'g'ri."
+
+#, python-format
+msgid "Only %(n)d left in stock."
+msgstr "Omborda faqat %(n)d ta qoldi."
+
+msgid "Cart item not found."
+msgstr "Savatdagi mahsulot topilmadi."
+
+#, python-format
+msgid "Ordering is paused until %(date)s because of missed pickups."
+msgstr "Olib ketilmagan buyurtmalar sababli %(date)s gacha buyurtma bera olmaysiz."
+
+msgid "Could not allocate a pickup code, please retry."
+msgstr "Olib ketish kodini yaratib bo'lmadi, qayta urinib ko'ring."
+
+msgid "Your cart is empty."
+msgstr "Savatingiz bo'sh."
+
+msgid "Some items in your cart are no longer available."
+msgstr "Savatdagi ba'zi mahsulotlar endi mavjud emas."
+
+msgid "This order belongs to another store."
+msgstr "Bu buyurtma boshqa do'konga tegishli."
+
+#, python-format
+msgid "Order is %(status)s; this action is not possible."
+msgstr "Buyurtma holati: %(status)s. Bu amalni bajarib bo'lmaydi."
+
+msgid "Wrong pickup code."
+msgstr "Olib ketish kodi noto'g'ri."
+
+msgid "Enter the 6-digit pickup code."
+msgstr "6 xonali kodni kiriting."
+
+msgid "No active order with this code."
+msgstr "Bu kod bilan faol buyurtma yo'q."
+
+msgid "You cannot cancel this order."
+msgstr "Bu buyurtmani bekor qila olmaysiz."
+
+msgid "Only the buyer can review this order."
+msgstr "Faqat xaridor sharh qoldira oladi."
+
+msgid "You can review a store after picking up your order."
+msgstr "Buyurtmani olib ketgandan keyin sharh qoldirishingiz mumkin."
+
+msgid "You have already reviewed this order."
+msgstr "Siz bu buyurtmaga allaqachon sharh qoldirgansiz."
+
+msgid "This is not your review."
+msgstr "Bu sizning sharhingiz emas."
+
+msgid "You are not part of this order."
+msgstr "Siz bu buyurtma ishtirokchisi emassiz."
+
+msgid "You already have an open dispute for this order."
+msgstr "Bu buyurtma bo'yicha ochiq murojaatingiz bor."
+
+msgid "Payments"
+msgstr "To'lovlar"
+
+msgid "Pending"
+msgstr "Kutilmoqda"
+
+msgid "Paid"
+msgstr "To'langan"
+
+msgid "Refunded"
+msgstr "Qaytarilgan"
+
+msgid "Failed"
+msgstr "Muvaffaqiyatsiz"
+
+msgid "method"
+msgstr "usul"
+
+msgid "amount, UZS"
+msgstr "summa, so'm"
+
+msgid "provider transaction id"
+msgstr "provayder tranzaksiya ID"
+
+msgid "provider data"
+msgstr "provayder ma'lumotlari"
+
+msgid "paid at"
+msgstr "to'langan vaqt"
+
+msgid "payment"
+msgstr "to'lov"
+
+msgid "payments"
+msgstr "to'lovlar"
+
+msgid "Cash on pickup"
+msgstr "Olishda naqd"
+
+msgid "Card on pickup"
+msgstr "Olishda karta bilan"
+
+msgid "Unknown payment method."
+msgstr "Noma'lum to'lov usuli."

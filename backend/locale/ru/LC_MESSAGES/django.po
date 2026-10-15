@@ -1,0 +1,903 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-15 17:07+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+msgid "Personal info"
+msgstr "Личные данные"
+
+msgid "No-shows"
+msgstr "Неявки"
+
+msgid "Permissions"
+msgstr "Права"
+
+msgid "Dates"
+msgstr "Даты"
+
+msgid "Allow ordering again (clear no-show block)"
+msgstr "Снова разрешить заказы (снять блокировку)"
+
+#, python-format
+msgid "%d user(s) unblocked."
+msgstr "Разблокировано пользователей: %d."
+
+msgid "seller"
+msgstr "продавец"
+
+#, python-format
+msgid "%d store(s) updated."
+msgstr "Обновлено магазинов: %d."
+
+msgid "Verify selected stores"
+msgstr "Подтвердить выбранные магазины"
+
+msgid "Reject selected stores"
+msgstr "Отклонить выбранные магазины"
+
+msgid "Move selected stores back to review"
+msgstr "Вернуть на проверку"
+
+msgid "Accounts"
+msgstr "Аккаунты"
+
+msgid "Uzbek"
+msgstr "Узбекский"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "phone"
+msgstr "телефон"
+
+msgid "first name"
+msgstr "имя"
+
+msgid "last name"
+msgstr "фамилия"
+
+msgid "email"
+msgstr "email"
+
+msgid "language"
+msgstr "язык"
+
+msgid "city"
+msgstr "город"
+
+msgid "latitude"
+msgstr "широта"
+
+msgid "longitude"
+msgstr "долгота"
+
+msgid "Telegram chat id"
+msgstr "ID чата Telegram"
+
+msgid "missed pickups"
+msgstr "не забранные заказы"
+
+msgid "ordering blocked until"
+msgstr "заказы заблокированы до"
+
+msgid "active"
+msgstr "активен"
+
+msgid "staff status"
+msgstr "статус персонала"
+
+msgid "date joined"
+msgstr "дата регистрации"
+
+msgid "user"
+msgstr "пользователь"
+
+msgid "users"
+msgstr "пользователи"
+
+msgid "name (Uzbek)"
+msgstr "название (узбекский)"
+
+msgid "name (Russian)"
+msgstr "название (русский)"
+
+msgid "cities"
+msgstr "города"
+
+msgid "Pending review"
+msgstr "На проверке"
+
+msgid "Verified"
+msgstr "Подтверждён"
+
+msgid "Rejected"
+msgstr "Отклонён"
+
+msgid "store name"
+msgstr "название магазина"
+
+msgid "description"
+msgstr "описание"
+
+msgid "logo"
+msgstr "логотип"
+
+msgid "store phone"
+msgstr "телефон магазина"
+
+msgid "address"
+msgstr "адрес"
+
+msgid "working hours"
+msgstr "часы работы"
+
+msgid "verification status"
+msgstr "статус проверки"
+
+msgid "verification note"
+msgstr "комментарий проверки"
+
+msgid "verified at"
+msgstr "дата подтверждения"
+
+msgid "seller profile"
+msgstr "профиль продавца"
+
+msgid "seller profiles"
+msgstr "профили продавцов"
+
+msgid "Login"
+msgstr "Вход"
+
+msgid "OTP code"
+msgstr "SMS-код"
+
+msgid "OTP codes"
+msgstr "SMS-коды"
+
+msgid "This account is disabled."
+msgstr "Этот аккаунт заблокирован."
+
+msgid "Please wait before requesting a new code."
+msgstr "Подождите перед запросом нового кода."
+
+#, python-format
+msgid "ResQ: your login code is %(code)s. Do not share it with anyone."
+msgstr "ResQ: ваш код для входа %(code)s. Никому его не сообщайте."
+
+msgid "Could not send SMS. Please try again later."
+msgstr "Не удалось отправить SMS. Попробуйте позже."
+
+msgid "Invalid or expired code."
+msgstr "Неверный или просроченный код."
+
+msgid "Must be an object keyed by weekday."
+msgstr "Должен быть объект с днями недели."
+
+#, python-format
+msgid "Unknown weekday: %s"
+msgstr "Неизвестный день недели: %s"
+
+msgid "Use {\"open\": \"HH:MM\", \"close\": \"HH:MM\"}."
+msgstr "Используйте формат {\"open\": \"ЧЧ:ММ\", \"close\": \"ЧЧ:ММ\"}."
+
+msgid "Invalid time."
+msgstr "Неверное время."
+
+msgid "You already have a store."
+msgstr "У вас уже есть магазин."
+
+msgid "Code sent."
+msgstr "Код отправлен."
+
+msgid "You do not have a store yet."
+msgstr "У вас ещё нет магазина."
+
+msgid "Analytics"
+msgstr "Аналитика"
+
+msgid "revenue, UZS"
+msgstr "выручка, сум"
+
+msgid "buyers saved, UZS"
+msgstr "экономия покупателей, сум"
+
+msgid "kg saved from waste"
+msgstr "кг спасено от выброса"
+
+msgid "seller daily stats"
+msgstr "дневная статистика продавца"
+
+msgid "platform impact snapshot"
+msgstr "влияние платформы"
+
+msgid "platform impact snapshots"
+msgstr "влияние платформы"
+
+msgid "Hide selected products (moderation)"
+msgstr "Скрыть выбранные товары (модерация)"
+
+#, python-format
+msgid "%d product(s) hidden."
+msgstr "Скрыто товаров: %d."
+
+msgid "Catalog"
+msgstr "Каталог"
+
+msgid "Category id or slug (includes subcategories)"
+msgstr "ID или slug категории (включая подкатегории)"
+
+msgid "City id or slug"
+msgstr "ID или slug города"
+
+msgid "Expires within N days"
+msgstr "Истекает в течение N дней"
+
+msgid "Max distance from lat/lng, km"
+msgstr "Макс. расстояние от lat/lng, км"
+
+msgid "Must be zero or positive."
+msgstr "Должно быть неотрицательным."
+
+msgid "lat and lng are required."
+msgstr "Нужны lat и lng."
+
+msgid "Must be positive."
+msgstr "Должно быть положительным."
+
+msgid "parent"
+msgstr "родительская категория"
+
+msgid "icon"
+msgstr "иконка"
+
+msgid "Frontend icon name."
+msgstr "Название иконки во фронтенде."
+
+msgid "requires expiry date"
+msgstr "требуется срок годности"
+
+msgid "Products here must have a future expiry date. Inherited by children."
+msgstr "Товары здесь должны иметь будущий срок годности. Наследуется подкатегориями."
+
+msgid "default weight per unit, kg"
+msgstr "вес единицы по умолчанию, кг"
+
+msgid "Used for waste-prevented estimates when a product has no weight."
+msgstr "Используется для оценки спасённых отходов, если вес товара не указан."
+
+msgid "category"
+msgstr "категория"
+
+msgid "categories"
+msgstr "категории"
+
+msgid "piece"
+msgstr "шт"
+
+msgid "kg"
+msgstr "кг"
+
+msgid "gram"
+msgstr "грамм"
+
+msgid "liter"
+msgstr "литр"
+
+msgid "milliliter"
+msgstr "миллилитр"
+
+msgid "pack"
+msgstr "упаковка"
+
+msgid "box"
+msgstr "коробка"
+
+msgid "set"
+msgstr "набор"
+
+msgid "New"
+msgstr "Новый"
+
+msgid "Opened packaging"
+msgstr "Вскрытая упаковка"
+
+msgid "Display item"
+msgstr "Витринный образец"
+
+msgid "Slight defect"
+msgstr "Небольшой дефект"
+
+msgid "Draft"
+msgstr "Черновик"
+
+msgid "Active"
+msgstr "В продаже"
+
+msgid "Sold out"
+msgstr "Распродан"
+
+msgid "Expired"
+msgstr "Срок истёк"
+
+msgid "Hidden"
+msgstr "Скрыт"
+
+msgid "title"
+msgstr "название"
+
+msgid "original price, UZS"
+msgstr "обычная цена, сум"
+
+msgid "current price, UZS"
+msgstr "текущая цена, сум"
+
+msgid "discount, %"
+msgstr "скидка, %"
+
+msgid "quantity in stock"
+msgstr "остаток"
+
+msgid "unit"
+msgstr "единица"
+
+msgid "weight per unit, kg"
+msgstr "вес единицы, кг"
+
+msgid "expiry date"
+msgstr "срок годности"
+
+msgid "condition"
+msgstr "состояние"
+
+msgid "condition note"
+msgstr "комментарий о состоянии"
+
+msgid "status"
+msgstr "статус"
+
+msgid "published at"
+msgstr "опубликован"
+
+msgid "product"
+msgstr "товар"
+
+msgid "products"
+msgstr "товары"
+
+msgid "product image"
+msgstr "фото товара"
+
+msgid "product images"
+msgstr "фото товаров"
+
+msgid "Changed by seller"
+msgstr "Изменено продавцом"
+
+msgid "Automatic markdown"
+msgstr "Автоматическая уценка"
+
+msgid "Changed by admin"
+msgstr "Изменено администратором"
+
+msgid "price change"
+msgstr "изменение цены"
+
+msgid "price history"
+msgstr "история цен"
+
+msgid "enabled"
+msgstr "включено"
+
+msgid "minimum price, UZS"
+msgstr "минимальная цена, сум"
+
+msgid "steps"
+msgstr "шаги"
+
+msgid "markdown rule"
+msgstr "правило уценки"
+
+msgid "markdown rules"
+msgstr "правила уценки"
+
+msgid "Original price must be positive."
+msgstr "Обычная цена должна быть положительной."
+
+msgid "Price must be positive."
+msgstr "Цена должна быть положительной."
+
+msgid "Discounted price must be lower than the original price."
+msgstr "Цена со скидкой должна быть ниже обычной."
+
+msgid "Expiry date is required for this category."
+msgstr "Для этой категории нужен срок годности."
+
+msgid "Expiry date must not be in the past."
+msgstr "Срок годности не может быть в прошлом."
+
+msgid "This category is not available."
+msgstr "Эта категория недоступна."
+
+msgid "New products can only be drafts or active."
+msgstr "Новый товар может быть только черновиком или в продаже."
+
+msgid "This status is managed automatically."
+msgstr "Этот статус управляется автоматически."
+
+msgid "This product has orders. Hide it instead of deleting."
+msgstr "По этому товару есть заказы. Скройте его вместо удаления."
+
+#, python-format
+msgid "A product can have at most %(n)d images."
+msgstr "У товара может быть не больше %(n)d фото."
+
+msgid "Image is larger than 5 MB."
+msgstr "Фото больше 5 МБ."
+
+msgid "Use JPEG, PNG or WebP images."
+msgstr "Используйте JPEG, PNG или WebP."
+
+msgid "This is not your product."
+msgstr "Это не ваш товар."
+
+msgid "Markdown rules need a product with an expiry date."
+msgstr "Для уценки у товара должен быть срок годности."
+
+msgid "Minimum price must be positive and below the original price."
+msgstr "Минимальная цена должна быть положительной и ниже обычной."
+
+msgid "Provide between 1 and 10 steps."
+msgstr "Укажите от 1 до 10 шагов."
+
+msgid "Each step needs days_before_expiry and discount_percent."
+msgstr "Для каждого шага нужны дни и процент скидки."
+
+msgid "days_before_expiry must be 0-60 and discount_percent 1-99."
+msgstr "Дни должны быть 0–60, скидка 1–99%."
+
+msgid "Each day may appear only once."
+msgstr "Каждый день можно указать только один раз."
+
+msgid "Discount must grow as expiry approaches."
+msgstr "Скидка должна расти по мере приближения срока."
+
+msgid "Product not found."
+msgstr "Товар не найден."
+
+msgid "created at"
+msgstr "создано"
+
+msgid "updated at"
+msgstr "обновлено"
+
+msgid "auto-cancel unconfirmed orders after, minutes"
+msgstr "автоотмена неподтверждённых заказов, мин"
+
+msgid "pickup window after 'ready', hours"
+msgstr "срок самовывоза после готовности, ч"
+
+msgid "no-shows before a temporary block"
+msgstr "неявок до временной блокировки"
+
+msgid "count no-shows over the last N days"
+msgstr "считать неявки за последние N дней"
+
+msgid "block duration, days"
+msgstr "длительность блокировки, дней"
+
+msgid "low stock alert at or below"
+msgstr "предупреждать об остатке не выше"
+
+msgid "'discounts near you' radius, km"
+msgstr "радиус «скидок рядом», км"
+
+msgid "'discounts near you' minimum discount, %"
+msgstr "минимальная скидка для «скидок рядом», %"
+
+msgid "auto-expire products"
+msgstr "автоматически снимать просроченные товары"
+
+msgid "apply markdown rules"
+msgstr "применять правила уценки"
+
+msgid "auto-cancel unconfirmed orders"
+msgstr "автоотмена неподтверждённых заказов"
+
+msgid "auto-cancel orders not picked up"
+msgstr "автоотмена не забранных заказов"
+
+msgid "platform settings"
+msgstr "настройки платформы"
+
+msgid "Platform settings"
+msgstr "Настройки платформы"
+
+msgid "Enter a valid Uzbek phone number, e.g. +998901234567."
+msgstr "Введите корректный номер, например +998901234567."
+
+msgid "Phone number must be in the form +998XXXXXXXXX."
+msgstr "Номер должен быть в формате +998XXXXXXXXX."
+
+msgid "Notifications"
+msgstr "Уведомления"
+
+msgid "UZS"
+msgstr "сум"
+
+#, python-format
+msgid "New order %(number)s"
+msgstr "Новый заказ %(number)s"
+
+#, python-format
+msgid "%(count)d item(s) for %(total)s. Please confirm it."
+msgstr "Товаров: %(count)d на %(total)s. Подтвердите заказ."
+
+#, python-format
+msgid "Order %(number)s confirmed"
+msgstr "Заказ %(number)s подтверждён"
+
+#, python-format
+msgid "%(store)s is preparing your order."
+msgstr "%(store)s собирает ваш заказ."
+
+#, python-format
+msgid "Order %(number)s is ready for pickup"
+msgstr "Заказ %(number)s готов к выдаче"
+
+#, python-format
+msgid ""
+"Pick it up at %(store)s, %(address)s before %(deadline)s. Show your pickup "
+"code to the seller."
+msgstr "Заберите в %(store)s, %(address)s до %(deadline)s. Покажите продавцу код получения."
+
+#, python-format
+msgid "Thank you! Order %(number)s completed"
+msgstr "Спасибо! Заказ %(number)s выполнен"
+
+#, python-format
+msgid "You saved %(savings)s. How was %(store)s? Leave a review."
+msgstr "Вы сэкономили %(savings)s. Как вам %(store)s? Оставьте отзыв."
+
+#, python-format
+msgid "Order %(number)s cancelled"
+msgstr "Заказ %(number)s отменён"
+
+#, python-format
+msgid "Low stock: %(title)s"
+msgstr "Заканчивается: %(title)s"
+
+#, python-format
+msgid "Only %(n)d left."
+msgstr "Осталось всего %(n)d."
+
+#, python-format
+msgid "Listing expired: %(title)s"
+msgstr "Срок истёк: %(title)s"
+
+msgid ""
+"It has been hidden from the catalog. Update the expiry date or remove it."
+msgstr "Товар скрыт из каталога. Обновите срок годности или удалите его."
+
+#, python-format
+msgid "Price drop: %(title)s"
+msgstr "Цена снижена: %(title)s"
+
+#, python-format
+msgid "Now %(new)s instead of %(old)s."
+msgstr "Теперь %(new)s вместо %(old)s."
+
+#, python-format
+msgid " and %(n)d more"
+msgstr " и ещё %(n)d"
+
+#, python-format
+msgid "%(n)d new discounts for you"
+msgstr "Новых скидок для вас: %(n)d"
+
+#, python-format
+msgid "Your ResQ day: %(date)s"
+msgstr "Ваш день в ResQ: %(date)s"
+
+#, python-format
+msgid ""
+"Orders completed: %(orders)d\n"
+"Items sold: %(items)d\n"
+"Revenue: %(revenue)s\n"
+"Saved from waste: %(kg)s kg"
+msgstr "Выполнено заказов: %(orders)d\nПродано единиц: %(items)d\nВыручка: %(revenue)s\nСпасено от выброса: %(kg)s кг"
+
+msgid "New order"
+msgstr "Новый заказ"
+
+msgid "Order status changed"
+msgstr "Статус заказа изменён"
+
+msgid "Order cancelled"
+msgstr "Заказ отменён"
+
+msgid "Low stock"
+msgstr "Мало на складе"
+
+msgid "Product expired"
+msgstr "Срок годности истёк"
+
+msgid "Daily summary"
+msgstr "Ежедневный отчёт"
+
+msgid "New discounts"
+msgstr "Новые скидки"
+
+msgid "Price drop on a favorite"
+msgstr "Снижение цены в избранном"
+
+msgid "Account"
+msgstr "Аккаунт"
+
+msgid "frontend link"
+msgstr "ссылка"
+
+msgid "notification"
+msgstr "уведомление"
+
+msgid "notifications"
+msgstr "уведомления"
+
+msgid "Telegram"
+msgstr "Telegram"
+
+msgid "new discounts near me / in my categories"
+msgstr "новые скидки рядом / в моих категориях"
+
+msgid "notification preferences"
+msgstr "настройки уведомлений"
+
+msgid "Cancel selected orders (stock is returned)"
+msgstr "Отменить выбранные заказы (остаток вернётся)"
+
+#, python-format
+msgid "%d order(s) cancelled."
+msgstr "Отменено заказов: %d."
+
+msgid "Hide selected reviews"
+msgstr "Скрыть выбранные отзывы"
+
+msgid "Show selected reviews"
+msgstr "Показать выбранные отзывы"
+
+msgid "Orders"
+msgstr "Заказы"
+
+msgid "Pending confirmation"
+msgstr "Ожидает подтверждения"
+
+msgid "Confirmed"
+msgstr "Подтверждён"
+
+msgid "Ready for pickup"
+msgstr "Готов к выдаче"
+
+msgid "Completed"
+msgstr "Выполнен"
+
+msgid "Cancelled"
+msgstr "Отменён"
+
+msgid "Cancelled by buyer"
+msgstr "Отменён покупателем"
+
+msgid "Cancelled by seller"
+msgstr "Отменён магазином"
+
+msgid "Not confirmed by seller in time"
+msgstr "Магазин не подтвердил вовремя"
+
+msgid "Not picked up in time"
+msgstr "Не забран вовремя"
+
+msgid "Cancelled by ResQ"
+msgstr "Отменён ResQ"
+
+msgid "buyer"
+msgstr "покупатель"
+
+msgid "checkout"
+msgstr "оформление"
+
+msgid "total, UZS"
+msgstr "итого, сум"
+
+msgid "total without discount, UZS"
+msgstr "итого без скидки, сум"
+
+msgid "payment method"
+msgstr "способ оплаты"
+
+msgid "note for the seller"
+msgstr "комментарий для продавца"
+
+msgid "pickup code"
+msgstr "код получения"
+
+msgid "seller must confirm by"
+msgstr "продавец должен подтвердить до"
+
+msgid "pick up by"
+msgstr "забрать до"
+
+msgid "cancel reason"
+msgstr "причина отмены"
+
+msgid "cancel comment"
+msgstr "комментарий к отмене"
+
+msgid "order"
+msgstr "заказ"
+
+msgid "orders"
+msgstr "заказы"
+
+msgid "rating"
+msgstr "оценка"
+
+msgid "comment"
+msgstr "комментарий"
+
+msgid "hidden by moderator"
+msgstr "скрыт модератором"
+
+msgid "review"
+msgstr "отзыв"
+
+msgid "reviews"
+msgstr "отзывы"
+
+msgid "Open"
+msgstr "Открыт"
+
+msgid "Resolved"
+msgstr "Решён"
+
+msgid "reason"
+msgstr "причина"
+
+msgid "resolution"
+msgstr "решение"
+
+msgid "dispute"
+msgstr "спор"
+
+msgid "disputes"
+msgstr "споры"
+
+msgid "no-show"
+msgstr "неявка"
+
+msgid "no-shows"
+msgstr "неявки"
+
+msgid "This product is not available."
+msgstr "Этот товар недоступен."
+
+msgid "You cannot buy your own products."
+msgstr "Нельзя купить собственный товар."
+
+msgid "Invalid quantity."
+msgstr "Неверное количество."
+
+#, python-format
+msgid "Only %(n)d left in stock."
+msgstr "На складе осталось только %(n)d."
+
+msgid "Cart item not found."
+msgstr "Позиция корзины не найдена."
+
+#, python-format
+msgid "Ordering is paused until %(date)s because of missed pickups."
+msgstr "Из-за не забранных заказов оформление недоступно до %(date)s."
+
+msgid "Could not allocate a pickup code, please retry."
+msgstr "Не удалось выдать код получения, попробуйте ещё раз."
+
+msgid "Your cart is empty."
+msgstr "Ваша корзина пуста."
+
+msgid "Some items in your cart are no longer available."
+msgstr "Некоторые товары в корзине больше недоступны."
+
+msgid "This order belongs to another store."
+msgstr "Этот заказ принадлежит другому магазину."
+
+#, python-format
+msgid "Order is %(status)s; this action is not possible."
+msgstr "Статус заказа: %(status)s. Это действие недоступно."
+
+msgid "Wrong pickup code."
+msgstr "Неверный код получения."
+
+msgid "Enter the 6-digit pickup code."
+msgstr "Введите 6-значный код."
+
+msgid "No active order with this code."
+msgstr "Нет активного заказа с этим кодом."
+
+msgid "You cannot cancel this order."
+msgstr "Вы не можете отменить этот заказ."
+
+msgid "Only the buyer can review this order."
+msgstr "Отзыв может оставить только покупатель."
+
+msgid "You can review a store after picking up your order."
+msgstr "Отзыв можно оставить после получения заказа."
+
+msgid "You have already reviewed this order."
+msgstr "Вы уже оставили отзыв на этот заказ."
+
+msgid "This is not your review."
+msgstr "Это не ваш отзыв."
+
+msgid "You are not part of this order."
+msgstr "Вы не участник этого заказа."
+
+msgid "You already have an open dispute for this order."
+msgstr "По этому заказу у вас уже есть открытое обращение."
+
+msgid "Payments"
+msgstr "Платежи"
+
+msgid "Pending"
+msgstr "Ожидает"
+
+msgid "Paid"
+msgstr "Оплачен"
+
+msgid "Refunded"
+msgstr "Возвращён"
+
+msgid "Failed"
+msgstr "Ошибка"
+
+msgid "method"
+msgstr "способ"
+
+msgid "amount, UZS"
+msgstr "сумма, сум"
+
+msgid "provider transaction id"
+msgstr "ID транзакции провайдера"
+
+msgid "provider data"
+msgstr "данные провайдера"
+
+msgid "paid at"
+msgstr "оплачен"
+
+msgid "payment"
+msgstr "платёж"
+
+msgid "payments"
+msgstr "платежи"
+
+msgid "Cash on pickup"
+msgstr "Наличными при получении"
+
+msgid "Card on pickup"
+msgstr "Картой при получении"
+
+msgid "Unknown payment method."
+msgstr "Неизвестный способ оплаты."
