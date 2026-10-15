@@ -43,6 +43,8 @@ LOCAL_APPS = [
     "catalog",
     "payments",
     "orders",
+    "notifications",
+    "analytics",
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -246,4 +248,53 @@ RESQ_DEFAULTS = {
 PAYMENT_PROVIDERS = {
     "cash": "payments.providers.cash.CashOnPickupProvider",
     "card": "payments.providers.cash.CardOnPickupProvider",
+}
+
+# --- Notifications ----------------------------------------------------------------------
+# The in-app channel is always on (every notification is stored); these deliver copies.
+NOTIFICATION_CHANNELS = [
+    "notifications.channels.telegram.TelegramChannel",
+    "notifications.channels.email.EmailChannel",
+]
+TELEGRAM_BOT_TOKEN = env("TELEGRAM_BOT_TOKEN", default="")
+TELEGRAM_BOT_USERNAME = env("TELEGRAM_BOT_USERNAME", default="")
+TELEGRAM_WEBHOOK_SECRET = env("TELEGRAM_WEBHOOK_SECRET", default="")
+FRONTEND_URL = env("FRONTEND_URL", default="http://localhost:5173")
+
+# --- Periodic tasks (Celery beat) --------------------------------------------------------
+from celery.schedules import crontab  # noqa: E402
+
+CELERY_BEAT_SCHEDULE = {
+    "expire-products": {
+        "task": "catalog.tasks.expire_products",
+        "schedule": crontab(minute=5, hour="*"),
+    },
+    "apply-markdown-rules": {
+        "task": "catalog.tasks.apply_markdown_rules",
+        "schedule": crontab(minute=10, hour="*"),
+    },
+    "sync-stock-statuses": {
+        "task": "catalog.tasks.sync_stock_statuses",
+        "schedule": crontab(minute="*/15"),
+    },
+    "cancel-unconfirmed-orders": {
+        "task": "orders.tasks.cancel_unconfirmed_orders",
+        "schedule": env.int("BEAT_ORDER_CHECK_SECONDS", default=60),
+    },
+    "cancel-unpicked-orders": {
+        "task": "orders.tasks.cancel_unpicked_orders",
+        "schedule": env.int("BEAT_ORDER_CHECK_SECONDS", default=60) * 5,
+    },
+    "notify-new-deals": {
+        "task": "notifications.tasks.notify_new_deals",
+        "schedule": crontab(minute=0, hour="9-21/2"),
+    },
+    "daily-seller-summaries": {
+        "task": "analytics.tasks.send_daily_seller_summaries",
+        "schedule": crontab(minute=0, hour=8),
+    },
+    "platform-impact": {
+        "task": "analytics.tasks.compute_platform_impact",
+        "schedule": crontab(minute=30, hour="*"),
+    },
 }
