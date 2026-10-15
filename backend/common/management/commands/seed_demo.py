@@ -291,7 +291,8 @@ class Command(BaseCommand):
             raise CommandError("Refusing to seed demo data with DEBUG off (use --force).")
         if opts["reset"]:
             self._reset()
-        if User.objects.filter(phone__startswith=DEMO_PREFIX).exists():
+        # The demo admin survives --reset, so it does not count as existing demo data.
+        if User.objects.filter(phone__startswith=DEMO_PREFIX).exclude(phone=ADMIN_PHONE).exists():
             self.stdout.write(self.style.WARNING("Demo data already exists (use --reset)."))
             return
         random.seed(42)

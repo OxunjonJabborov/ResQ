@@ -16,7 +16,7 @@ RUN pip install -r requirements/${REQUIREMENTS}.txt
 
 RUN useradd --create-home --uid 1000 app
 COPY --chown=app:app . .
-RUN mkdir -p /app/media /app/staticfiles && chown -R app:app /app/media /app/staticfiles
+RUN mkdir -p /app/staticfiles /data/media && chown -R app:app /app/staticfiles /data
 USER app
 
 EXPOSE 8000
