@@ -1,132 +1,139 @@
 # ResQ
 
-Marketplace where businesses in Uzbekistan sell surplus, overstock and near-expiry (but
-still good) goods at a discount. Buyers reserve online and pick up in the store; payment
-is cash or card on pickup for now. UI languages: Uzbek (default) and Russian. Currency: UZS.
+O'zbekistondagi bizneslar ortiqcha qolgan, zaxirada to'planib qolgan va yaroqlilik muddati
+yaqinlashgan (lekin hali sifatli) tovarlarni chegirma bilan sotadigan marketpleys. Xaridor
+onlayn bron qiladi va do'kondan o'zi olib ketadi. Hozircha to'lov olib ketishda naqd yoki
+karta bilan amalga oshiriladi. Interfeys tillari: o'zbekcha (asosiy) va ruscha. Valyuta: so'm (UZS).
 
 ```
-backend/    Django 6.1 + DRF API, Celery tasks, Django admin
-frontend/   React + TypeScript + Vite single-page app (mobile first)
+backend/    Django 6.1 + DRF API, Celery vazifalari, Django admin
+frontend/   React + TypeScript + Vite bir sahifali ilova (avval mobil uchun)
 docker-compose.yml   db, redis, backend, celery, celery-beat, frontend
 ```
 
-## Quick start (docker-compose)
+## Tez ishga tushirish (docker-compose)
 
 ```bash
-cp .env.example .env          # then set DJANGO_SECRET_KEY to a random value
-docker compose up --build     # first build takes a few minutes
+cp .env.example .env          # so'ng DJANGO_SECRET_KEY ga tasodifiy qiymat yozing
+docker compose up --build     # birinchi yig'ish bir necha daqiqa davom etadi
 docker compose exec backend python manage.py seed_demo
 ```
 
-| URL | What |
+| Manzil | Nima |
 |---|---|
-| http://localhost:5173 | Web app (Vite dev server, proxies `/api` and `/media` to Django) |
+| http://localhost:5173 | Veb-ilova (Vite dev-server, `/api` va `/media` so'rovlarini Django'ga yo'naltiradi) |
 | http://localhost:8000/api/docs/ | OpenAPI / Swagger UI |
 | http://localhost:8000/admin/ | Django admin |
 
-`seed_demo --reset` recreates the demo data at any time.
+`seed_demo --reset` demo ma'lumotlarni istalgan vaqtda qaytadan yaratadi.
 
-### Demo accounts
+### Demo hisoblar
 
-Everyone logs in with **phone + SMS code**. In development the code is shown in the
-login form (`OTP_DEBUG_RETURN_CODE=true`) and printed to the backend log
-(`docker compose logs -f backend`). Codes can be re-requested once a minute.
+Hamma **telefon raqami + SMS kod** orqali kiradi. Ishlab chiqish rejimida kod kirish
+formasida ko'rsatiladi (`OTP_DEBUG_RETURN_CODE=true`) va backend logiga yoziladi
+(`docker compose logs -f backend`). Kodni daqiqasiga bir marta qayta so'rash mumkin.
 
-| Role | Phone | Notes |
+| Rol | Telefon | Izoh |
 |---|---|---|
-| Admin (Django admin only) | +998 99 000 00 00 | password `resq-admin-demo` (demo only) |
-| Seller: Non Uyi Chilonzor (bakery) | +998 99 000 01 01 | verified |
-| Seller: FreshMarket Yunusobod (grocery) | +998 99 000 01 02 | verified, has new/active orders |
-| Seller: TechOutlet Sergeli (electronics, clothing) | +998 99 000 01 03 | verified |
-| Seller: Registon Dehqon Bozori (Samarkand) | +998 99 000 01 04 | verified |
-| Seller: Yangi Do'kon | +998 99 000 01 05 | **pending verification**, products not public |
-| Buyer: Aziza (Russian UI) | +998 99 000 02 01 | has orders pending / confirmed / ready |
-| Buyer: Jasur | +998 99 000 02 02 | |
-| Buyer: Dilnoza | +998 99 000 02 03 | |
+| Administrator (faqat Django admin) | +998 99 000 00 00 | parol `resq-admin-demo` (faqat demo uchun) |
+| Sotuvchi: Non Uyi Chilonzor (novvoyxona) | +998 99 000 01 01 | tasdiqlangan |
+| Sotuvchi: FreshMarket Yunusobod (oziq-ovqat) | +998 99 000 01 02 | tasdiqlangan, yangi va faol buyurtmalari bor |
+| Sotuvchi: TechOutlet Sergeli (elektronika, kiyim) | +998 99 000 01 03 | tasdiqlangan |
+| Sotuvchi: Registon Dehqon Bozori (Samarqand) | +998 99 000 01 04 | tasdiqlangan |
+| Sotuvchi: Yangi Do'kon | +998 99 000 01 05 | **tekshiruvda**, mahsulotlari katalogda ko'rinmaydi |
+| Xaridor: Aziza (ruscha interfeys) | +998 99 000 02 01 | tasdiq kutilayotgan, tasdiqlangan va tayyor buyurtmalari bor |
+| Xaridor: Jasur | +998 99 000 02 02 | |
+| Xaridor: Dilnoza | +998 99 000 02 03 | |
 
-Any other Uzbek number also works and creates a new buyer account.
+Boshqa istalgan o'zbek raqami ham ishlaydi va yangi xaridor hisobini yaratadi.
 
-## Architecture
+## Arxitektura
 
 ```
-Browser (React SPA)
-   │  JSON over HTTPS, JWT bearer, Accept-Language: uz|ru
+Brauzer (React SPA)
+   │  HTTPS orqali JSON, JWT bearer, Accept-Language: uz|ru
    ▼
-Django + DRF  ──── /api/v1/ ──── views (thin) → services (business logic) → models
+Django + DRF  ──── /api/v1/ ──── view'lar (yupqa) → servislar (biznes mantiq) → modellar
    │                                                   │
-   │  signals after commit (order_placed, ...)         │ select_for_update for stock
+   │  tranzaksiyadan keyin signallar (order_placed, …) │ qoldiq uchun select_for_update
    ▼                                                   ▼
-notifications app ── Celery task ──► Telegram / email   PostgreSQL
+notifications ilovasi ── Celery vazifasi ──► Telegram / email   PostgreSQL
                                                        ▲
-Celery beat ── periodic tasks (expiry, markdown, auto-cancel, digests, stats)
-   └──────────── broker / cache: Redis
+Celery beat ── davriy vazifalar (muddat, narx tushirish, avto-bekor, xabarlar, statistika)
+   └──────────── broker / kesh: Redis
 ```
 
-**Rules of the codebase**
+**Kod bazasi qoidalari**
 
-- Business logic lives in `<app>/services.py`. Views and serializers validate input and
-  call a service. Services raise `common.exceptions.DomainError` subclasses (never DRF
-  exceptions), so they work from views, Celery tasks, admin actions and commands.
-- Every list/detail endpoint for owned data filters its queryset by the current user
-  or store, so another user's object returns 404. Object permissions add a second check.
-- Domain events (`orders.signals`, `catalog.signals`) are sent **after commit**; the
-  `notifications` app subscribes to them. Orders do not import notifications.
-- All periodic tasks are **idempotent**: they re-check state under a row lock, use
-  conditional updates, dedupe keys or upserts, and are covered by tests that run them twice.
+- Biznes mantiq `<app>/services.py` fayllarida yashaydi. View va serializer'lar faqat
+  kiruvchi ma'lumotni tekshiradi va servisni chaqiradi. Servislar DRF istisnolarini emas,
+  `common.exceptions.DomainError` avlodlarini ko'taradi. Shuning uchun ular view'lardan,
+  Celery vazifalaridan, admin amallaridan va buyruqlardan bir xil ishlaydi.
+- Egasi bor ma'lumotlar uchun har bir ro'yxat va batafsil endpoint queryset'ni joriy
+  foydalanuvchi yoki do'kon bo'yicha filtrlaydi. Shuning uchun boshqa foydalanuvchining
+  obyekti 404 qaytaradi. Obyekt darajasidagi ruxsatlar qo'shimcha tekshiruv beradi.
+- Domen hodisalari (`orders.signals`, `catalog.signals`) **tranzaksiya tasdiqlangandan
+  keyin** yuboriladi. `notifications` ilovasi ularga obuna bo'ladi. `orders` ilovasi
+  `notifications` ni import qilmaydi.
+- Barcha davriy vazifalar **idempotent**: ular holatni qator qulfi ostida qayta tekshiradi,
+  shartli yangilash, takrorlanishga qarshi kalitlar yoki upsert ishlatadi. Har biri
+  ikki marta ishga tushiriladigan testlar bilan qoplangan.
 
-### Apps
+### Ilovalar
 
-| App | Responsibility |
+| Ilova | Vazifasi |
 |---|---|
-| `accounts` | Custom `User` (phone login), OTP codes, SMS provider interface, `SellerProfile` with verification, cities |
-| `catalog` | Category tree, products, images, validation, public catalog filters, markdown rules, price history, favorites |
-| `orders` | Cart, split checkout with stock reservation, order state machine, pickup code + QR, reviews, disputes, no-shows |
-| `payments` | `Payment` model and the payment provider interface (cash/card on pickup) |
-| `notifications` | In-app notifications, Telegram and email channels, preferences, deals digest |
-| `analytics` | Daily seller stats and summary, platform impact (items rescued, kg of waste prevented), seller dashboard |
-| `common` | Shared utilities, `PlatformSettings` (business rules editable in admin), `seed_demo` |
+| `accounts` | Maxsus `User` (telefon orqali kirish), SMS kodlar, SMS provayder interfeysi, tekshiruvli `SellerProfile`, shaharlar |
+| `catalog` | Kategoriyalar daraxti, mahsulotlar, rasmlar, validatsiya, ommaviy katalog filtrlari, narx tushirish qoidalari, narx tarixi, sevimlilar |
+| `orders` | Savat, qoldiqni bron qiluvchi bo'lingan rasmiylashtirish, buyurtma holatlari, olib ketish kodi va QR, sharhlar, murojaatlar, olib ketilmagan buyurtmalar |
+| `payments` | `Payment` modeli va to'lov provayderi interfeysi (olishda naqd yoki karta) |
+| `notifications` | Ilova ichidagi bildirishnomalar, Telegram va email kanallari, sozlamalar, chegirmalar dayjesti |
+| `analytics` | Sotuvchining kunlik statistikasi va hisoboti, platforma ta'siri (qutqarilgan mahsulotlar, oldi olingan isrof kg), sotuvchi paneli |
+| `common` | Umumiy yordamchilar, `PlatformSettings` (adminda tahrirlanadigan biznes qoidalari), `seed_demo` |
 
-### Order lifecycle
+### Buyurtma hayot sikli
 
 ```
-pending ──confirm──► confirmed ──ready──► ready_for_pickup ──code/QR──► completed
-   │                    │                      │
-   └──── cancelled ◄────┴──────────────────────┘  (buyer, seller, admin or automatic)
+pending ──tasdiqlash──► confirmed ──tayyor──► ready_for_pickup ──kod/QR──► completed
+   │                       │                        │
+   └───── cancelled ◄──────┴────────────────────────┘  (xaridor, sotuvchi, admin yoki avtomatik)
 ```
 
-- A cart with products from several stores becomes **one order per store** in a single
-  transaction. All of them are created or none: unavailable items produce a 409 that lists them.
-- Stock is reserved at checkout under `SELECT … FOR UPDATE`, and cancellation returns it
-  exactly once. A product flips to `sold_out` at zero stock and back to `active` on restock.
-- Each active order has a 6-digit pickup code, unique within the store. The buyer
-  sees the code and a QR (`RESQ:<order id>:<code>`). The seller never sees it and
-  completes the order by typing or scanning it.
-- Reviews are allowed only for completed orders, one per order. The store rating is an
-  aggregate that excludes reviews hidden by moderators.
+- Bir nechta do'kon mahsulotlari bor savat bitta tranzaksiyada **har bir do'kon uchun
+  alohida buyurtmaga** aylanadi. Yo hammasi yaratiladi, yo hech biri: mavjud bo'lmagan
+  mahsulotlar ro'yxati bilan 409 javobi qaytadi.
+- Qoldiq rasmiylashtirishda `SELECT … FOR UPDATE` ostida bron qilinadi, bekor qilinganda
+  aynan bir marta qaytariladi. Qoldiq nolga tushsa mahsulot `sold_out` holatiga o'tadi,
+  to'ldirilganda yana `active` bo'ladi.
+- Har bir faol buyurtmaning do'kon ichida takrorlanmaydigan 6 xonali olib ketish kodi bor.
+  Xaridor kodni va QR'ni (`RESQ:<buyurtma id>:<kod>`) ko'radi. Sotuvchi kodni hech qachon
+  ko'rmaydi va buyurtmani uni kiritib yoki skanerlab yakunlaydi.
+- Sharhni faqat yakunlangan buyurtma uchun, har bir buyurtmaga bittadan qoldirish mumkin.
+  Do'kon reytingi moderator yashirgan sharhlarsiz hisoblanadigan o'rtacha qiymatdir.
 
-### Automation (Celery beat)
+### Avtomatlashtirish (Celery beat)
 
-Schedules are in `CELERY_BEAT_SCHEDULE` (`backend/config/settings/base.py`). Business
-parameters and on/off switches are in **Admin → Platform settings**.
+Jadvallar `CELERY_BEAT_SCHEDULE` da (`backend/config/settings/base.py`). Biznes
+parametrlari va yoqish/o'chirish tugmalari **Admin → Platforma sozlamalari** bo'limida.
 
-| Task | Default schedule | What it does |
+| Vazifa | Standart jadval | Nima qiladi |
 |---|---|---|
-| `catalog.tasks.expire_products` | hourly | Listings past `expiry_date` → `expired` (hidden), seller notified |
-| `catalog.tasks.apply_markdown_rules` | hourly | Applies sellers' step-by-step markdowns down to the minimum price, records `PriceHistory`, notifies users who favorited the product |
-| `catalog.tasks.sync_stock_statuses` | every 15 min | Safety net for `sold_out` ↔ `active` |
-| `orders.tasks.cancel_unconfirmed_orders` | every minute | Cancels orders not confirmed within N minutes (default 30), returns stock |
-| `orders.tasks.cancel_unpicked_orders` | every 5 min | Cancels ready orders past the pickup deadline (default 24 h), records a no-show; 3 no-shows in 30 days block ordering for 7 days |
-| `notifications.tasks.notify_new_deals` | every 2 h, 9:00–21:00 | Digest of new ≥30 % discounts within 5 km or in favorite categories |
-| `analytics.tasks.send_daily_seller_summaries` | daily 08:00 | Yesterday's sales, revenue and kg saved per store |
-| `analytics.tasks.compute_platform_impact` | hourly | Items rescued, kg of waste prevented, buyer savings |
+| `catalog.tasks.expire_products` | har soatda | `expiry_date` o'tgan e'lonlar `expired` holatiga o'tadi (yashiriladi), sotuvchiga xabar boradi |
+| `catalog.tasks.apply_markdown_rules` | har soatda | Sotuvchilarning bosqichma-bosqich narx tushirish qoidalarini minimal narxgacha qo'llaydi, `PriceHistory` ga yozadi, mahsulotni sevimlilarga qo'shganlarga xabar beradi |
+| `catalog.tasks.sync_stock_statuses` | har 15 daqiqada | `sold_out` ↔ `active` uchun himoya |
+| `orders.tasks.cancel_unconfirmed_orders` | har daqiqada | N daqiqa (standart 30) ichida tasdiqlanmagan buyurtmalarni bekor qiladi, qoldiqni qaytaradi |
+| `orders.tasks.cancel_unpicked_orders` | har 5 daqiqada | Olib ketish muddati (standart 24 soat) o'tgan tayyor buyurtmalarni bekor qiladi va olib ketilmagan deb belgilaydi. 30 kunda 3 marta olib ketilmasa, buyurtma berish 7 kunga bloklanadi |
+| `notifications.tasks.notify_new_deals` | 9:00–21:00 oralig'ida har 2 soatda | 5 km ichidagi yoki sevimli kategoriyalardagi 30 % dan katta yangi chegirmalar dayjesti |
+| `analytics.tasks.send_daily_seller_summaries` | har kuni 08:00 da | Har bir do'kon uchun kechagi sotuvlar, tushum va qutqarilgan kg |
+| `analytics.tasks.compute_platform_impact` | har soatda | Qutqarilgan mahsulotlar, oldi olingan isrof kg, xaridorlar tejagan summa |
 
-Low-stock alerts and order status notifications are event-driven, not scheduled.
+Qoldiq kamligi va buyurtma holati haqidagi xabarlar jadval bo'yicha emas, hodisa yuz berganda yuboriladi.
 
-## Development
+## Ishlab chiqish
 
-### Backend without Docker
+### Backend'ni Docker'siz ishga tushirish
 
-You need Python 3.12+ and the compose Postgres/Redis (published on ports 5433/6379).
+Python 3.12+ hamda compose'dagi Postgres va Redis kerak (ular 5433 va 6379 portlarida ochiq).
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
@@ -136,141 +143,150 @@ cd backend
 python manage.py migrate
 python manage.py seed_demo
 python manage.py runserver
-celery -A config worker -B --loglevel=info     # optional, second terminal
+celery -A config worker -B --loglevel=info     # ixtiyoriy, ikkinchi terminalda
 ```
 
-Settings modules: `config.settings.dev` (default for `manage.py`), `config.settings.test`
-(pytest) and `config.settings.prod` (WSGI/ASGI default; refuses weak secrets and
-`OTP_DEBUG_RETURN_CODE`). All configuration comes from environment variables, see `.env.example`.
+Sozlamalar modullari: `config.settings.dev` (`manage.py` uchun standart),
+`config.settings.test` (pytest) va `config.settings.prod` (WSGI/ASGI uchun standart; zaif
+maxfiy kalit yoki yoqilgan `OTP_DEBUG_RETURN_CODE` bilan ishga tushmaydi). Barcha sozlamalar
+muhit o'zgaruvchilaridan olinadi, `.env.example` ga qarang.
 
-### Frontend without Docker
+### Frontend'ni Docker'siz ishga tushirish
 
 ```bash
 cd frontend
 npm ci
-npm run dev        # http://localhost:5173, proxies to http://localhost:8000
+npm run dev        # http://localhost:5173, so'rovlarni http://localhost:8000 ga yo'naltiradi
 npm run lint
-npm run build      # type-check + production build
+npm run build      # turlarni tekshirish + production yig'ish
 ```
 
-### Tests and lint
+### Testlar va lint
 
 ```bash
 cd backend
-pytest                       # needs the compose Postgres (concurrency tests use real locks)
-pytest -m concurrency        # only the parallel checkout tests
+pytest                       # compose'dagi Postgres kerak (parallellik testlari haqiqiy qulflardan foydalanadi)
+pytest -m concurrency        # faqat parallel rasmiylashtirish testlari
 ruff check . && ruff format --check .
-pre-commit install           # run ruff and basic hooks on every commit
+pre-commit install           # har bir commit'da ruff va asosiy tekshiruvlarni ishga tushiradi
 ```
 
-CI (`.github/workflows/ci.yml`) runs ruff, a missing-migrations check and pytest on
-PostgreSQL. It also runs the frontend lint and build.
+CI (`.github/workflows/ci.yml`) ruff'ni, tushib qolgan migratsiyalar tekshiruvini va
+PostgreSQL'da pytest'ni ishga tushiradi. Frontend uchun lint va yig'ishni ham bajaradi.
 
-Test coverage includes product validation, permissions and object isolation, OTP
-throttling, real concurrent checkouts with no overselling, the order split, every
-status transition, and every automation task, each run twice to prove idempotency.
+Testlar mahsulot validatsiyasi, ruxsatlar va obyektlarni ajratish, SMS kod cheklovlari,
+qoldiqni ortiqcha sotmaydigan haqiqiy parallel rasmiylashtirishlar, buyurtmani bo'lish,
+holatlarning har bir o'tishi va idempotentligini isbotlash uchun ikki marta ishga
+tushiriladigan har bir avtomatik vazifani qamrab oladi.
 
-### Translations
+### Tarjimalar
 
-Backend strings use `gettext`. Catalogs live in `backend/locale/{uz,ru}`. After
-changing strings:
+Backend matnlari `gettext` dan foydalanadi. Kataloglar `backend/locale/{uz,ru}` da.
+Matnlarni o'zgartirgandan keyin:
 
 ```bash
 docker compose exec backend python manage.py makemessages -l uz -l ru --no-location
-# edit the .po files, then
+# .po fayllarni tahrirlang, so'ng
 docker compose exec backend python manage.py compilemessages
 ```
 
-Category and city names are stored in both languages (`name_uz`, `name_ru`). The API
-returns the one matching `Accept-Language`. Frontend texts are in
-`frontend/src/i18n/locales/{uz,ru}.json`.
+Kategoriya va shahar nomlari ikkala tilda saqlanadi (`name_uz`, `name_ru`). API
+`Accept-Language` sarlavhasiga mos nomni qaytaradi. Frontend matnlari
+`frontend/src/i18n/locales/{uz,ru}.json` fayllarida.
 
-## Extending
+## Kengaytirish
 
-### Add an SMS provider (e.g. Eskiz)
+### SMS provayder qo'shish (masalan, Eskiz)
 
-1. Create `backend/accounts/sms/backends/eskiz.py`:
+1. `backend/accounts/sms/backends/eskiz.py` faylini yarating:
 
    ```python
    from ..base import BaseSMSBackend, SMSDeliveryError
 
    class EskizSMSBackend(BaseSMSBackend):
        def send(self, phone: str, message: str) -> None:
-           # self.options holds SMS_OPTIONS: email, password, sender
-           # get a token, POST the message, raise SMSDeliveryError on failure
+           # self.options ichida SMS_OPTIONS bor: email, password, sender
+           # token oling, xabarni POST qiling, xatoda SMSDeliveryError ko'taring
            ...
    ```
 
-2. Set the environment variables `SMS_BACKEND=accounts.sms.backends.eskiz.EskizSMSBackend`,
-   `ESKIZ_EMAIL`, `ESKIZ_PASSWORD` and `SMS_SENDER`.
+2. Muhit o'zgaruvchilarini o'rnating: `SMS_BACKEND=accounts.sms.backends.eskiz.EskizSMSBackend`,
+   `ESKIZ_EMAIL`, `ESKIZ_PASSWORD` va `SMS_SENDER`.
 
-The OTP service deletes the code and returns 503 when `SMSDeliveryError` is raised.
+`SMSDeliveryError` ko'tarilsa, SMS kod servisi kodni o'chiradi va 503 qaytaradi.
 
-### Add a payment provider (Click, Payme)
+### To'lov provayderi qo'shish (Click, Payme)
 
-Order code only calls `payments.services`. To add an online provider:
+Buyurtma kodi faqat `payments.services` ni chaqiradi. Onlayn provayder qo'shish uchun:
 
-1. Subclass `payments.providers.base.BasePaymentProvider` and set `code = "click"` and
-   `is_online = True`.
-2. `start(payment)` creates the invoice and returns `PaymentStart(redirect_url=...)`.
-3. `handle_callback(request)` verifies the provider signature, calls
-   `self.mark_paid(payment, external_id)` and returns the response body the provider expects.
-   The webhook URL is `/api/v1/payments/callback/click/`.
-4. Implement `on_order_completed` and, if refunds are needed, `on_order_cancelled`.
-5. Register it in `PAYMENT_PROVIDERS` in settings. It appears in `/api/v1/payments/methods/`
-   and at checkout.
+1. `payments.providers.base.BasePaymentProvider` dan meros oling va `code = "click"`,
+   `is_online = True` qilib belgilang.
+2. `start(payment)` hisob-faktura yaratadi va `PaymentStart(redirect_url=...)` qaytaradi.
+3. `handle_callback(request)` provayder imzosini tekshiradi, `self.mark_paid(payment, external_id)`
+   ni chaqiradi va provayder kutgan javobni qaytaradi. Webhook manzili
+   `/api/v1/payments/callback/click/`.
+4. `on_order_completed` ni va kerak bo'lsa pulni qaytarish uchun `on_order_cancelled` ni amalga oshiring.
+5. Uni sozlamalardagi `PAYMENT_PROVIDERS` ga qo'shing. U `/api/v1/payments/methods/` da va
+   rasmiylashtirish sahifasida paydo bo'ladi.
 
-If an online provider must be paid before the seller confirms, add that check in
-`orders.services.confirm_order`. It is the only place the order flow needs to know.
+Agar onlayn to'lov sotuvchi tasdiqlashidan oldin amalga oshishi shart bo'lsa, bu tekshiruvni
+`orders.services.confirm_order` ga qo'shing. Buyurtma jarayoni buni bilishi kerak bo'lgan
+yagona joy shu.
 
-### Add a notification channel (SMS, push, ...)
+### Bildirishnoma kanali qo'shish (SMS, push, …)
 
-1. Subclass `notifications.channels.base.BaseChannel`, set `code` and implement
-   `is_available_for(notification)` and `send(notification)`. Raise `ChannelError` for
-   temporary failures, and the Celery task retries with backoff.
-2. Add the dotted path to `NOTIFICATION_CHANNELS`.
+1. `notifications.channels.base.BaseChannel` dan meros oling, `code` ni belgilang va
+   `is_available_for(notification)` hamda `send(notification)` ni amalga oshiring.
+   Vaqtinchalik xatolarda `ChannelError` ko'taring, Celery vazifasi esa kutish oralig'ini
+   oshirib qayta urinadi.
+2. Klassning to'liq yo'lini `NOTIFICATION_CHANNELS` ga qo'shing.
 
-Every notification is stored first, which is the in-app channel. Each channel records
-its delivery in `Notification.delivered`, so retries never send twice.
+Har bir bildirishnoma avval bazaga saqlanadi, bu ilova ichidagi kanal hisoblanadi. Har bir
+kanal yetkazilganini `Notification.delivered` ga yozadi, shuning uchun qayta urinishlar
+xabarni ikki marta yubormaydi.
 
-To enable Telegram, set `TELEGRAM_BOT_TOKEN`, `TELEGRAM_BOT_USERNAME` and
-`TELEGRAM_WEBHOOK_SECRET`. Then register the webhook:
+Telegram'ni yoqish uchun `TELEGRAM_BOT_TOKEN`, `TELEGRAM_BOT_USERNAME` va
+`TELEGRAM_WEBHOOK_SECRET` ni o'rnating. So'ng webhook'ni ro'yxatdan o'tkazing:
 
 ```bash
 curl "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/setWebhook" \
-  -d url=https://<your-domain>/api/v1/notifications/telegram/webhook/ \
+  -d url=https://<sizning-domeningiz>/api/v1/notifications/telegram/webhook/ \
   -d secret_token=$TELEGRAM_WEBHOOK_SECRET
 ```
 
-Users connect from their profile page through a one-time deep link.
+Foydalanuvchilar profil sahifasidan bir martalik havola orqali ulanadi.
 
-## Deployment notes
+## Serverga joylash bo'yicha eslatmalar
 
-- Build the backend image with `REQUIREMENTS=prod` (gunicorn) and run it with
-  `DJANGO_SETTINGS_MODULE=config.settings.prod`. Run `migrate` and `collectstatic` on release.
-- The frontend `prod` Docker target serves the built SPA with nginx and proxies `/api`,
-  `/media`, `/admin` and `/static` to the backend (`frontend/nginx.conf`).
-- Run exactly **one** `celery beat` process. Run as many workers as needed.
-- Media is stored on the local filesystem. Use object storage (S3-compatible) when
-  you run more than one backend instance.
-- Never set `OTP_DEBUG_RETURN_CODE` in production. Prod settings refuse to start if it is on.
+- Backend image'ini `REQUIREMENTS=prod` (gunicorn) bilan yig'ing va
+  `DJANGO_SETTINGS_MODULE=config.settings.prod` bilan ishga tushiring. Har bir relizda
+  `migrate` va `collectstatic` ni bajaring.
+- Frontend'ning `prod` Docker bosqichi yig'ilgan SPA'ni nginx orqali beradi va `/api`,
+  `/media`, `/admin` hamda `/static` ni backend'ga yo'naltiradi (`frontend/nginx.conf`).
+- Faqat **bitta** `celery beat` jarayonini ishga tushiring. Worker'lar soni ehtiyojga qarab.
+- Media fayllar lokal fayl tizimida saqlanadi. Bir nechta backend nusxasi ishlatilganda
+  obyekt xotirasiga (S3 bilan mos) o'ting.
+- Production'da `OTP_DEBUG_RETURN_CODE` ni hech qachon yoqmang. U yoqilgan bo'lsa,
+  prod sozlamalari ishga tushmaydi.
 
-## Known limitations / next steps
+## Ma'lum cheklovlar va keyingi qadamlar
 
-- Payment is offline only (cash or card on pickup). Click and Payme plug in through the provider interface.
-- The SMS provider is console-only until an Eskiz backend is added.
-- Distance uses a haversine SQL expression with a bounding-box prefilter. It is enough
-  for city-scale catalogs; switch to PostGIS when the catalog grows large.
-- The demo admin password is for local use only. `seed_demo` refuses to run with `DEBUG` off.
+- To'lov faqat oflayn (olishda naqd yoki karta). Click va Payme provayder interfeysi orqali ulanadi.
+- Eskiz backend'i qo'shilmaguncha SMS faqat konsolga chiqariladi.
+- Masofa chegaralovchi to'rtburchak bilan oldindan filtrlanadigan haversine SQL ifodasi
+  orqali hisoblanadi. Shahar miqyosidagi katalog uchun bu yetarli; katalog juda kattalashsa,
+  PostGIS'ga o'ting.
+- Demo administrator paroli faqat lokal foydalanish uchun. `DEBUG` o'chiq bo'lsa, `seed_demo` ishlamaydi.
 
-## Contributing
+## Hissa qo'shish
 
-- Branch from `main`, keep commits small, and use conventional commit messages
-  (`feat(orders): ...`, `fix(catalog): ...`).
-- Every new business rule goes in a service function with a test. Every new endpoint
-  for owned data needs an isolation test that another user gets 404.
-- Run `pre-commit install` once. CI must be green before merging.
+- `main` dan branch oching, commit'larni kichik qiling va conventional commit
+  formatidagi xabarlardan foydalaning (`feat(orders): ...`, `fix(catalog): ...`).
+- Har bir yangi biznes qoidasi test bilan birga servis funksiyasiga yoziladi. Egasi bor
+  ma'lumotlar uchun har bir yangi endpoint boshqa foydalanuvchi 404 olishini tekshiruvchi
+  testga ega bo'lishi kerak.
+- `pre-commit install` ni bir marta bajaring. Birlashtirishdan oldin CI muvaffaqiyatli o'tishi shart.
 
-## License
+## Litsenziya
 
-MIT, see `LICENSE`.
+MIT, `LICENSE` fayliga qarang.
