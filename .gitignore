@@ -14,8 +14,8 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
+/lib/
+/lib64/
 parts/
 sdist/
 var/
@@ -55,6 +55,8 @@ cover/
 # Translations
 *.mo
 *.pot
+# Compiled Django catalogs are committed so the app works without gettext installed.
+!backend/locale/**/*.mo
 
 # Django stuff:
 *.log
