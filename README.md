@@ -14,7 +14,7 @@ docker-compose.yml   db, redis, backend, celery, celery-beat, frontend
 ## Tez ishga tushirish (docker-compose)
 
 ```bash
-cp .env.example .env          # so'ng DJANGO_SECRET_KEY ga tasodifiy qiymat yozing
+cp .env.example .env          # so'ng DJANGO_SECRET_KEY ga tasodifiy qiymat yozing 
 docker compose up --build     # birinchi yig'ish bir necha daqiqa davom etadi
 docker compose exec backend python manage.py seed_demo
 ```
@@ -34,7 +34,7 @@ formasida ko'rsatiladi (`OTP_DEBUG_RETURN_CODE=true`) va backend logiga yoziladi
 (`docker compose logs -f backend`). Kodni daqiqasiga bir marta qayta so'rash mumkin.
 
 | Rol | Telefon | Izoh |
-|---|---|---|
+|-----|---------|------|
 | Administrator (faqat Django admin) | +998 99 000 00 00 | parol `resq-admin-demo` (faqat demo uchun) |
 | Sotuvchi: Non Uyi Chilonzor (novvoyxona) | +998 99 000 01 01 | tasdiqlangan |
 | Sotuvchi: FreshMarket Yunusobod (oziq-ovqat) | +998 99 000 01 02 | tasdiqlangan, yangi va faol buyurtmalari bor |
@@ -82,7 +82,7 @@ Celery beat ── davriy vazifalar (muddat, narx tushirish, avto-bekor, xabarla
 ### Ilovalar
 
 | Ilova | Vazifasi |
-|---|---|
+|-------|----------|
 | `accounts` | Maxsus `User` (telefon orqali kirish), SMS kodlar, SMS provayder interfeysi, tekshiruvli `SellerProfile`, shaharlar |
 | `catalog` | Kategoriyalar daraxti, mahsulotlar, rasmlar, validatsiya, ommaviy katalog filtrlari, narx tushirish qoidalari, narx tarixi, sevimlilar |
 | `orders` | Savat, qoldiqni bron qiluvchi bo'lingan rasmiylashtirish, buyurtma holatlari, olib ketish kodi va QR, sharhlar, murojaatlar, olib ketilmagan buyurtmalar |
@@ -117,7 +117,7 @@ Jadvallar `CELERY_BEAT_SCHEDULE` da (`backend/config/settings/base.py`). Biznes
 parametrlari va yoqish/o'chirish tugmalari **Admin → Platforma sozlamalari** bo'limida.
 
 | Vazifa | Standart jadval | Nima qiladi |
-|---|---|---|
+|--------|-----------------|-------------|
 | `catalog.tasks.expire_products` | har soatda | `expiry_date` o'tgan e'lonlar `expired` holatiga o'tadi (yashiriladi), sotuvchiga xabar boradi |
 | `catalog.tasks.apply_markdown_rules` | har soatda | Sotuvchilarning bosqichma-bosqich narx tushirish qoidalarini minimal narxgacha qo'llaydi, `PriceHistory` ga yozadi, mahsulotni sevimlilarga qo'shganlarga xabar beradi |
 | `catalog.tasks.sync_stock_statuses` | har 15 daqiqada | `sold_out` ↔ `active` uchun himoya |
