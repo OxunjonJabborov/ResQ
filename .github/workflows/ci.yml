@@ -27,7 +27,7 @@ jobs:
           --health-cmd "pg_isready -U resq" --health-interval 5s
           --health-timeout 5s --health-retries 10
     env:
-      DJANGO_SECRET_KEY: ci-only-not-secret
+      DJANGO_SECRET_KEY: ci-only-not-a-real-secret-just-long-enough-for-jwt-hmac
       DATABASE_URL: postgres://resq:resq@localhost:5432/resq
     steps:
       - uses: actions/checkout@v5
